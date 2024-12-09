@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+== sekcja 1: dodawanie aktywnosci ==
+user -> Frontend: dodaj aktywność
+Frontend -> Engine: user chce dodac aktywnosc
+Engine -> DB: odbiera info o aktynosci i dodaje
+Frontend <- Engine: another authentication Response
+user <- Frontend: dodano aktywnosc
+==  sekcja 2: wyswietlanie strony głownej ==
+user -> Frontend : wyswietl strone glona
+Frontend -> Engine : żądanie wyswietlenia strny glownej
+Engine -> DB: żądanie ostatnich aktywnosci uzytownikow
+DB -> Engine : wyslanie danych ostatnich aktywnosci
+Engine -> Frontend: wyslanie danych ostatnich aktywnosci
+Frontend -> user : wyswietlnie danych ostatnich aktywnosci
+== sekcja 3: sprawdzanie progresu ==
+user -> Frontend : pokaz moje podsumowanie - progres
+Frontend -> Engine : żądanie wyswietlenia progresu
+Engine -> DB: żądanie progresu
+DB -> Engine : wyslanie danych ostatnich aktywnosci podsumowanych
+Engine -> Frontend: wyslanie danych ostatnich aktywnosci podsumowanych
+Frontend -> user : wyswietlnie danych w tabelce (podsumowanie progresu)
+== sekcja 4: logowanie ==
+user -> Frontend : podaje dane i zaloguj sie
+Frontend -> Engine : żądanie zalogowania z danymi
+Engine -> DB: żądanie zalogowania danymi
+DB --> Engine : wyslanie danych powiazanych z nickiem
+Engine --> Frontend: sprawdzenie prawidlowe - zalogowano
+Frontend --> user : zalogowano
+Engine --> Frontend : bledne dane - sprobuj ponownie
+Frontend --> user : nieudane logowanie, wpisz prawidlowe dane
+@enduml
+@startuml
+== usuwanie aktywnosci ==
+admin -> Frontend : usun aktywnosc danego uzytkowanika
+Frontend -> Engine : żądanie usuniecia aktywnosci
+Engine -> DB: żądanie usuniecia aktywnsoci
+DB -> Engine : usunieto aktywnosc
+Engine -> Frontend: usunieto aktywnosc
+Frontend -> admin : usunieto aktywnosc
+== permanentne banowanie uzytkownika ==
+admin -> Frontend : zbanowanie uzytkownika
+Frontend -> Engine : żądanie usuniecia danego uzytkowanika i aktywnosci
+Engine -> DB: żądanie usuniecia uzytkownika i jego aktywnsoci
+DB -> Engine : usunieto aktywnosci
+DB -> Engine : usunieto uzytkownika
+Engine -> Frontend: usunieto urztkownika i jego aktywnosci
+Frontend -> admin : zbanowano uzytkownika
+@enduml
