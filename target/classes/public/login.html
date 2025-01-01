@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div>
+        Username<input id="username"/><br/>
+        Password<input id="password"/><br/>
+        <button id="btn">Wyślij</button>
+    </div>
+    <script>
+        document.getElementById("btn").onclick = async () => {
+            let json = await fetchPostAsync()
+            console.log(json)
+            if (json){
+                window.location = 'http://127.0.0.1:4567/';
+            }
+            // alert(JSON.stringify(json, null, 5))
+        }
+        fetchPostAsync = async () => {
+            const dat = JSON.stringify({
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+            })
+
+            const options = {
+                method: "POST",
+                body: dat,
+            }
+
+            let response = await fetch("/login", options)
+
+            if (!response.ok) {
+                return response.status
+            }
+            else {
+                return await response.json() // response.json
+            }
+
+        }
+    </script>
+</body>
+</html>
