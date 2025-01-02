@@ -14,3 +14,32 @@ navLinks.forEach(link => {
         }
     });
 });
+
+
+
+document.getElementById("logOutBtn").onclick = async () => {
+    let json = await fetchPostAsync()
+
+
+    window.location = 'http://127.0.0.1:4567/login.html';
+    console.log(json)
+    alert(JSON.stringify(json, null, 5))
+}
+
+
+    fetchPostAsync = async () => {
+        const options = {
+            method: "POST",
+        };
+
+        let response = await fetch("/logout", options);
+
+        if (!response.ok) {
+            return response.status; // Zwróć status w przypadku błędu
+        } else {
+            return await response.text(); // Pobierz odpowiedź jako tekst
+        }
+
+}
+
+

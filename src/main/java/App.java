@@ -14,9 +14,11 @@ public class App {
     
     public static void main(String[] args) {
         userArr.add(new User("a", "2"));
+        userArr.add(new User("b", "3"));
         staticFiles.location("/public");
         get("/test", (req, res) -> "test");
         post("/login", (req, res) -> login(req, res));
+        post("/logout", (req,res) -> logout(req, res));
     }
 
     public static boolean login(Request req, Response res) {
@@ -45,12 +47,14 @@ public class App {
 
     }
 
-    public void logout(){
+    public static String logout(Request req, Response res){
         if (loggedUser != null){
             loggedUser = null;
             System.out.println("Pomyślnie wylogowano");
+            return "wylogowano";
         } else {
             System.out.println("Nie można wylogować - użytkownik nie jest zalogowany");
+            return "nie mozna wylogowac";
         }
     }
 
