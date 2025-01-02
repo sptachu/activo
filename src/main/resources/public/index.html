@@ -2,9 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strava-Inspired Page</title>
+    <link rel="stylesheet" href="homePage.css">
+
 </head>
 <body>
-INDEX
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="brand">ACTIVO </div>
+    <div class="nav-links">
+        <a href="#activities">Home</a>
+        <a href="#goals">Goals & Progress</a>
+        <div class="profile-picture" title="User Profile">
+            <span class="profile-initial">U</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Layout -->
+<div class="container">
+    <!-- Left Sidebar -->
+    <div class="column left-column">
+        <h2>Menu</h2>
+        <ul>
+            <li>Profile</li>
+            <li>Friends</li>
+            <li>Challenges</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="column main-column">
+        <div id="activities">
+            <h1>Recent Activities</h1>
+            <p>Here you can see all your recent activities, such as runs, rides, or swims.</p>
+        </div>
+        <div id="goals" style="display: none;">
+            <h1>Goals & Progress</h1>
+            <p>Track your progress towards your fitness goals here.</p>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="column right-column">
+        <h2>Stats</h2>
+        <ul>
+            <li>Total Distance: 123 km</li>
+            <li>Weekly Goal: 20 km</li>
+            <li>Calories Burned: 4567 kcal</li>
+        </ul>
+    </div>
+</div>
+
+<script src="homePage.js"></script>
 </body>
 </html>
