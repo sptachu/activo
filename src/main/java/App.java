@@ -28,6 +28,7 @@ public class App {
         post("/getCurrentUser", (req, res) -> getCurrentUser(req,res));
         post("/getUserList", (req, res) -> getUserList(req,res));
         post("/deleteActivities", (req, res) -> deleteActivities(req,res));
+        post("/deleteUsers", (req, res) -> deleteUsers(req,res));
     }
 
     public static boolean login(Request req, Response res) {
@@ -115,7 +116,37 @@ public class App {
                         activityArr.remove(j);
                     }
                 }
-                //TO DO - REMOVE FROM USER ARRAYS AS WELL! NOW IT JUST REMOVES FROM ACTIVITY ARRAY
+                for(int g = 0;g<userArr.size();g+=1){
+                    for(int h = 0;h<userArr.get(g).activities.size();h+=1){
+                        if (Objects.equals(toDelete.get(i), userArr.get(g).activities.get(h).id)){
+                            userArr.get(g).activities.remove(h);
+                        }
+                    }
+                }
+            }
+
+            return(true);
+        } else {
+            return(false);
+        }
+    }
+    public static boolean deleteUsers(Request req, Response res) {
+        if (loggedUser != null){
+            Gson gson = new Gson();
+            String[] received = gson.fromJson(req.body(), String[].class);
+            ArrayList<String> toDelete = new ArrayList<String>(Arrays.asList(received));
+            for (int i = 0;i< toDelete.size();i+=1){
+                System.out.println(toDelete.get(i));
+                for(int j = 0;j<userArr.size();j+=1){
+                    if (Objects.equals(toDelete.get(i), userArr.get(j).username)){
+                        userArr.remove(j);
+                    }
+                }
+                for(int g = 0;g<activityArr.size();g+=1){
+                    if (Objects.equals(toDelete.get(i), activityArr.get(g).user)){
+                        userArr.get(g).activities.remove(g);
+                    }
+                }
             }
 
             return(true);

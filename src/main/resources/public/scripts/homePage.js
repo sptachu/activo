@@ -15,6 +15,17 @@ navLinks.forEach(link => {
     });
 });
 
+window.onload = async () => {
+    let json = await fetchPostAsync3()
+    console.log(json)
+    if (json != null && json.ifAdmin){
+        window.location = 'http://127.0.0.1:4567/adminPage.html';
+        alert("Jesteś na koncie admina, przenoszenie na stronę admina")
+    } else if (json == null) {
+        window.location = 'http://127.0.0.1:4567/login.html';
+        alert("Nie jesteś zalogowany, przenoszenie na stronę logowania")
+    }
+}
 
 
 document.getElementById("logOutBtn").onclick = async () => {
@@ -67,6 +78,20 @@ fetchPostAsync2 = async () => {
 
 
 
+}
+
+fetchPostAsync3 = async () => {
+    const options = {
+        method: "POST",
+    };
+
+    let response = await fetch("/getCurrentUser", options);
+
+    if (!response.ok) {
+        return response.status;
+    } else {
+        return await response.json();
+    }
 }
 
 

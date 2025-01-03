@@ -8,6 +8,7 @@ public class Activity {
     public double distance;
     public String pace;
     public int elevation;
+    public String user;
 
     public Activity(String title, String location, String duration, String time, String type, double distance,int elevation, User user) {
         this.title = title;
@@ -24,6 +25,7 @@ public class Activity {
         }
 
         this.id = user.username + ":" + user.activityCount;
+        this.user = user.username;
     }
 
 
