@@ -8,6 +8,7 @@ public class User {
     public boolean ifAdmin;
     public String username;
     public String password;
+    public int activityCount;
     public String totalActiveTime;
     public String goalTotalActiveTime;
     public String timeDifference = timeToGoal(totalActiveTime, goalTotalActiveTime);
@@ -30,6 +31,16 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.ifAdmin = false;
+        this.activityCount = 0;
+    }
+
+    public void switchAccountType() {
+        if (this.ifAdmin) {
+            this.ifAdmin = false;
+        } else {
+            this.ifAdmin = true;
+        }
     }
 
     public static String toFancyTime(long totalSeconds) {

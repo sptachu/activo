@@ -43,7 +43,7 @@ document.getElementById("logOutBtn").onclick = async () => {
 }
 
 document.getElementById("addActivityBtn").onclick = async () => {
-    let json = await fetchPostAsync()
+    let json = await fetchPostAsync2()
 
 
     window.location = 'http://127.0.0.1:4567/addActivity.html';
@@ -52,7 +52,7 @@ document.getElementById("addActivityBtn").onclick = async () => {
 }
 
 
-fetchPostAsync = async () => {
+fetchPostAsync2 = async () => {
     const options = {
         method: "POST",
     };

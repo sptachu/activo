@@ -1,26 +1,29 @@
 public class Activity {
+    public String id;
+    public String title;
     public String location;
     public String duration;
     public String time;
     public String type;
-    public User user;
     public double distance;
     public String pace;
     public int elevation;
 
-    public Activity(String location, String duration, String time, String type, double distance,int elevation, User user) {
+    public Activity(String title, String location, String duration, String time, String type, double distance,int elevation, User user) {
+        this.title = title;
         this.location = location;
         this.duration = duration;
         this.time = time;
         this.type = type;
         this.distance = distance;
-        this.user = user;
         this.elevation = elevation;
         switch (type) {
             case "run" -> this.pace = runPaceCalc(duration, distance);
             case "bike" -> this.pace = bikePaceCalc(duration, distance);
             case "swim" -> this.pace = swimPaceCalc(duration, distance);
         }
+
+        this.id = user.username + ":" + user.activityCount;
     }
 
 

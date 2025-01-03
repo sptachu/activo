@@ -19,7 +19,7 @@ body {
     color: #007bff;
 }
 
-form {
+#addActivityForm {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;

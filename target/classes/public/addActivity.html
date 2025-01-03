@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Activity</title>
-    <link rel="stylesheet" href="addActivity.css">
+    <link rel="stylesheet" href="styles/addActivity.css">
 </head>
 <body>
 <div class="container">
     <h1 class="form-title">Add Activity</h1>
-    <form id="addActivityForm">
+    <div id="addActivityForm">
         <div class="full-width centered">
             <label for="title">Activity Title:</label>
             <input type="text" id="title" name="title" required>
@@ -40,9 +40,9 @@
                 <input type="number" id="distance" name="distance" step="0.01" required>
             </div>
         </div>
-        <button type="submit" class="wide-button" id="submitActivityBtn">Add Activity</button>
-    </form>
+        <button class="wide-button" id="submitActivityBtn">Add Activity</button>
+    </div>
 </div>
-<script src="addActivity.js"></script>
+<script src="scripts/addActivity.js"></script>
 </body>
 </html>
