@@ -20,11 +20,12 @@ public class User {
     public String fourHundredMetersSwimTime;
     public String goalFourHundredMetersSwimTime;
     public String timeDifferenceSwim = timeToGoal(fourHundredMetersSwimTime, goalFourHundredMetersSwimTime);
-    public int totalDistance;
-    public int goalTotalDistance;
-    public int distanceDifference = goalTotalDistance - totalDistance;
+    public double totalDistance;
+    public double goalTotalDistance;
+    public double distanceDifference = goalTotalDistance - totalDistance;
 
     ArrayList<User> friends = new ArrayList<User>();
+    ArrayList<Activity> activities = new ArrayList<Activity>();
 
     public User(String username, String password) {
         this.username = username;

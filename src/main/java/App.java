@@ -58,10 +58,11 @@ public class App {
         }
     }
 
-    public void addActivity(String location, long duration, long time, String type){
+    public void addActivity(String location, String duration, String time, double distance,int elevation, String type){
         if (loggedUser != null) {
-            Activity activity = new Activity(location, duration, time, type, loggedUser);
+            Activity activity = new Activity(location, duration, time, type, distance,elevation, loggedUser);// dystans zawsze musi byc podany w km
             activityArr.add(activity);
+            loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
             System.out.println("Pomyślnie dodano aktywność");
         } else {
             System.out.println("Nie można dodać aktywności - najpierw się zaloguj");
