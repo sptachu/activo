@@ -19,6 +19,13 @@ public class App {
         get("/test", (req, res) -> "test");
         post("/login", (req, res) -> login(req, res));
         post("/logout", (req,res) -> logout(req, res));
+        post("/goToAddActivitySite", (req, res) -> goToAddActivitySite(req,res));
+        post("/addActivity", (req, res) -> {
+            Gson gson = new Gson();
+            Activity activity = gson.fromJson(req.body(), Activity.class);
+            addActivity(activity.location, activity.duration, activity.time, activity.distance, activity.elevation, activity.type);
+            return "dodano aktywnosc";
+        });
     }
 
     public static boolean login(Request req, Response res) {
@@ -58,7 +65,17 @@ public class App {
         }
     }
 
-    public void addActivity(String location, String duration, String time, double distance,int elevation, String type){
+    public static String goToAddActivitySite(Request req, Response res){
+        if (loggedUser != null){
+            System.out.println("Przekierowanie do strony dodawania aktywności");
+            return "teraz mozesz dodac aktywnosc";
+        } else {
+            System.out.println("Nie można dodac aktywnosci - użytkownik nie jest zalogowany");
+            return "nie mozna dodac aktywnosci";
+        }
+    }
+
+    public static void addActivity(String location, String duration, String time, double distance,int elevation, String type){
         if (loggedUser != null) {
             Activity activity = new Activity(location, duration, time, type, distance,elevation, loggedUser);// dystans zawsze musi byc podany w km
             activityArr.add(activity);
