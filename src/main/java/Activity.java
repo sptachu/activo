@@ -28,6 +28,28 @@ public class Activity {
         this.user = user.username;
     }
 
+    public Activity(String id, String title, String location, String duration, String time, String type, double distance,int elevation, String user) {
+        this.title = title;
+        this.location = location;
+        this.duration = duration;
+        this.time = time;
+        this.type = type;
+        this.distance = distance;
+        this.elevation = elevation;
+        switch (type) {
+            case "run" -> this.pace = runPaceCalc(duration, distance);
+            case "bike" -> this.pace = bikePaceCalc(duration, distance);
+            case "swim" -> this.pace = swimPaceCalc(duration, distance);
+        }
+
+        for (User u : App.userArr) {
+            if (u.username.equals(user)) {
+                this.id = id;
+                this.user = u.username;
+            }
+        }
+    }
+
 
     private static String runPaceCalc(String duration, double distance) {
         long durationSeconds = User.toSeconds(duration);
