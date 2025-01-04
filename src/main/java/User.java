@@ -26,7 +26,7 @@ public class User {
     public double distanceDifference = goalTotalDistance - totalDistance;
 
     ArrayList<User> friends = new ArrayList<User>();
-    ArrayList<Activity> activities = new ArrayList<Activity>();
+    public ArrayList<Activity> activities = new ArrayList<Activity>();
 
     public User(String username, String password) {
         this.username = username;

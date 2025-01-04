@@ -56,9 +56,12 @@ document.getElementById("logOutBtn").onclick = async () => {
 document.getElementById("addActivityBtn").onclick = async () => {
     let json = await fetchPostAsync2()
 
-
-    window.location = 'http://127.0.0.1:4567/addActivity.html';
-    console.log(json)
+    if(json === "nie mozna dodac aktywnosci"){
+        window.location = 'http://127.0.0.1:4567/login.html';
+    } else {
+        window.location = 'http://127.0.0.1:4567/addActivity.html';
+    }
+    console.log("Response from server:", json);
     alert(JSON.stringify(json, null, 5))
 }
 

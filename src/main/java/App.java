@@ -14,11 +14,21 @@ public class App {
     static ArrayList<Activity> activityArr = new ArrayList<Activity>();
     
     public static void main(String[] args) {
+        // inicjalizacja bazy danych i wczytanie listy urzytkonikw z niej
+        //DatabaseHandler.initDatabase();
+        //userArr.addAll(DatabaseHandler.getUsers());
+
+        //zawsze jak dodaje urzytkownika do arraylisty to dodaje tez do bazy danych
         userArr.add(new User("a", "2"));
+        //DatabaseHandler.addUser(userArr.get(0));
         userArr.add(new User("b", "3"));
+        //DatabaseHandler.addUser(userArr.get(1));
+
         User adminUser = new User("admin", "admin");
         adminUser.switchAccountType();
         userArr.add(adminUser);
+        //DatabaseHandler.addUser(adminUser);
+        //printAllActivities();
         staticFiles.location("/public");
         get("/test", (req, res) -> "test");
         post("/login", (req, res) -> login(req, res));
@@ -29,6 +39,11 @@ public class App {
         post("/getUserList", (req, res) -> getUserList(req,res));
         post("/deleteActivities", (req, res) -> deleteActivities(req,res));
         post("/deleteUsers", (req, res) -> deleteUsers(req,res));
+    }
+
+    public static void printAllActivities() {
+        for(Activity xd : userArr.getFirst().activities)
+            System.out.println(xd.title);
     }
 
     public static boolean login(Request req, Response res) {
@@ -87,10 +102,21 @@ public class App {
             // te dwie linijki powyzej naprawiaja czas do formatu w ktorym minuty i sekundy nie sa wieksze ni 60
             // tak zeby czas pomimo bledu uzytkownika byl zapisany w poprawny sposob
 
-            Activity activity = new Activity(activityParams.title, activityParams.location, activityParams.duration, activityParams.time, activityParams.type, activityParams.distance,activityParams.elevation, loggedUser);// dystans zawsze musi byc podany w km
+            Activity activity = new Activity(
+                    activityParams.title,
+                    activityParams.location,
+                    activityParams.duration,
+                    activityParams.time,
+                    activityParams.type,
+                    activityParams.distance,   // dystans zawsze musi byc podany w km
+                    activityParams.elevation,
+                    loggedUser
+            );
             activityArr.add(activity);
             loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
             loggedUser.activityCount += 1;
+//            DatabaseHandler.addActivity(activity);
+//            DatabaseHandler.addUser(loggedUser);
             System.out.println("Pomyślnie dodano aktywność");
             return(true);
         } else {
