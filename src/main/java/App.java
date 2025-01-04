@@ -82,6 +82,11 @@ public class App {
         Gson gson = new Gson();
         Activity activityParams = gson.fromJson(req.body(), Activity.class);
         if (loggedUser != null) {
+            long durationRepairer = User.toSeconds(activityParams.duration);
+            activityParams.duration = User.toFancyTime(durationRepairer);
+            // te dwie linijki powyzej naprawiaja czas do formatu w ktorym minuty i sekundy nie sa wieksze ni 60
+            // tak zeby czas pomimo bledu uzytkownika byl zapisany w poprawny sposob
+
             Activity activity = new Activity(activityParams.title, activityParams.location, activityParams.duration, activityParams.time, activityParams.type, activityParams.distance,activityParams.elevation, loggedUser);// dystans zawsze musi byc podany w km
             activityArr.add(activity);
             loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci

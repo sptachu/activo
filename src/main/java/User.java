@@ -44,19 +44,25 @@ public class User {
     }
 
     public static String toFancyTime(long totalSeconds) {
-        Duration duration = Duration.ofSeconds(totalSeconds);
-        LocalTime time = LocalTime.MIDNIGHT.plus(duration); // Start from midnight
-        return time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        long hours = totalSeconds / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+        long seconds = totalSeconds % 60;
+        return String.format("%d:%02d:%02d", hours, minutes, seconds);
     }
 
     public static long toSeconds(String timeString) {
         try {
-            LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm:ss"));
-            return time.toSecondOfDay();
-        } catch (DateTimeParseException e) {
-            System.err.println("Niepoprawny format czasu: " + e.getMessage());
-            throw new IllegalArgumentException("Niepoprawne wartości liczbowe w czasie");
+            String[] parts = timeString.split(":");
+            long hours = Long.parseLong(parts[0]);
+            long minutes = Long.parseLong(parts[1]);
+            long seconds = Long.parseLong(parts[2]);
+            return hours * 3600 + minutes * 60 + seconds;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("Invalid time format: " + e.getMessage());
+            throw new IllegalArgumentException("Invalid numeric values in time");
         }
+        // program jest bardziej "debiloodporny" - urzytkownik moze podac czas tak jak mu sie podoba,
+        // na przyklad tylko w sekundach albo tylko w minutach. program i tak go zrozumie
     }
 
     public static String timeToGoal(String time, String goalTime) {
