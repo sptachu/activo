@@ -135,3 +135,7 @@ body {
     text-align: center;
     color: #007bff;
 }
+
+.activityDiv {
+    border-style: solid;
+}

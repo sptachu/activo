@@ -24,6 +24,18 @@ window.onload = async () => {
     } else if (json == null) {
         window.location = 'http://127.0.0.1:4567/login.html';
         alert("Nie jesteś zalogowany, przenoszenie na stronę logowania")
+    } else {
+        document.getElementById("profile-initial").innerText = json.username[0]
+        let activityJson = await fetchPostAsync4()
+        console.log(activityJson)
+        for(let i = activityJson.length - 1;i>=0;i--){
+            let activityDiv = document.createElement("div")
+            activityDiv.id = activityJson[i].id
+            activityDiv.classList.add("activityDiv");
+            document.getElementById("activities").appendChild(activityDiv)
+            activityDiv.innerHTML = activityJson[i].user + "<br>" + activityJson[i].time + ", " + activityJson[i].location + "<br>" + activityJson[i].title + ", " + activityJson[i].type + "<br>" + activityJson[i].duration + ", " + activityJson[i].distance + "<br>" + activityJson[i].pace + ", " + activityJson[i].elevation
+
+        }
     }
 }
 
@@ -89,6 +101,20 @@ fetchPostAsync3 = async () => {
     };
 
     let response = await fetch("/getCurrentUser", options);
+
+    if (!response.ok) {
+        return response.status;
+    } else {
+        return await response.json();
+    }
+}
+
+fetchPostAsync4 = async () => {
+    const options = {
+        method: "POST",
+    };
+
+    let response = await fetch("/getActivityList", options);
 
     if (!response.ok) {
         return response.status;

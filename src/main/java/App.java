@@ -39,12 +39,13 @@ public class App {
         post("/getUserList", (req, res) -> getUserList(req,res));
         post("/deleteActivities", (req, res) -> deleteActivities(req,res));
         post("/deleteUsers", (req, res) -> deleteUsers(req,res));
+        post("/getActivityList", (req, res) -> getActivityList(req,res));
     }
 
-    public static void printAllActivities() {
-        for(Activity xd : userArr.getFirst().activities)
-            System.out.println(xd.title);
-    }
+//    public static void printAllActivities() {
+//        for(Activity xd : userArr.getFirst().activities)
+//            System.out.println(xd.title);
+//    }
 
     public static boolean login(Request req, Response res) {
         Gson gson = new Gson();
@@ -142,12 +143,12 @@ public class App {
             ArrayList<String> toDelete = new ArrayList<String>(Arrays.asList(received));
             for (int i = 0;i< toDelete.size();i+=1){
                 System.out.println(toDelete.get(i));
-                for(int j = 0;j<activityArr.size();j+=1){
+                for(int j = activityArr.size()-1;j>=0;j-=1){
                     if (Objects.equals(toDelete.get(i), activityArr.get(j).id)){
                         activityArr.remove(j);
                     }
                 }
-                for(int g = 0;g<userArr.size();g+=1){
+                for(int g = userArr.size()-1;g>=0;g-=1){
                     for(int h = 0;h<userArr.get(g).activities.size();h+=1){
                         if (Objects.equals(toDelete.get(i), userArr.get(g).activities.get(h).id)){
                             userArr.get(g).activities.remove(h);
@@ -168,14 +169,14 @@ public class App {
             ArrayList<String> toDelete = new ArrayList<String>(Arrays.asList(received));
             for (int i = 0;i< toDelete.size();i+=1){
                 System.out.println(toDelete.get(i));
-                for(int j = 0;j<userArr.size();j+=1){
+                for(int j = userArr.size()-1;j>=0;j-=1){
                     if (Objects.equals(toDelete.get(i), userArr.get(j).username)){
                         userArr.remove(j);
                     }
                 }
-                for(int g = 0;g<activityArr.size();g+=1){
+                for(int g = activityArr.size()-1;g>=0;g-=1){
                     if (Objects.equals(toDelete.get(i), activityArr.get(g).user)){
-                        userArr.get(g).activities.remove(g);
+                        activityArr.remove(g);
                     }
                 }
             }
@@ -184,6 +185,11 @@ public class App {
         } else {
             return(false);
         }
+    }
+
+    public static String getActivityList(Request req, Response res){
+        Gson gson = new Gson();
+        return(gson.toJson(activityArr));
     }
 
 
