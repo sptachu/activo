@@ -19,8 +19,13 @@
                 <label for="time">Time:</label>
                 <input type="text" id="time" name="time" required>
 
-                <label for="type">Type:</label>
-                <input placeholder="swim or bike or run" type="text" id="type" name="type" required>
+                <label>Type:</label>
+                <div class="activity-buttons">
+                    <button type="button" class="activity-btn" data-type="swim">Swim</button>
+                    <button type="button" class="activity-btn" data-type="bike">Bike</button>
+                    <button type="button" class="activity-btn" data-type="run">Run</button>
+                </div>
+                <input type="hidden" id="type" name="type" required>
 
                 <label>Duration:</label>
                 <div class="duration-inputs">
