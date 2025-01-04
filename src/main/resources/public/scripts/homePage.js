@@ -49,6 +49,10 @@ document.getElementById("logOutBtn").onclick = async () => {
     alert(JSON.stringify(json, null, 5))
 }
 
+document.getElementById("user-profile").onclick = async () => {
+    window.location = 'http://127.0.0.1:4567/profile.html';
+}
+
 
     fetchPostAsync = async () => {
         const options = {
