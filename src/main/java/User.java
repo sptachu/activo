@@ -35,6 +35,13 @@ public class User {
         this.activityCount = 0;
     }
 
+    public User (String username, String password, boolean ifAdmin) {
+        this.username = username;
+        this.password = password;
+        this.ifAdmin = ifAdmin;
+        this.activityCount = 0;
+    }
+
     public void switchAccountType() {
         if (this.ifAdmin) {
             this.ifAdmin = false;

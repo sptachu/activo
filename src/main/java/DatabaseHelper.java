@@ -28,8 +28,8 @@ public class DatabaseHelper {
     }
 
     public boolean createTables() {
-        String createUsers = "CREATE TABLE IF NOT EXISTS users (id_user INTEGER PRIMARY KEY AUTOINCREMENT, ifAdmin INTEGER, username TEXT, password TEXT, activityCount INTEGER)";
-        String createActivities = "CREATE TABLE IF NOT EXISTS activities (id_activity INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, duration TEXT, time TEXT, type TEXT, distance REAL, elevation INTEGER, user TEXT )";
+        String createUsers = "CREATE TABLE IF NOT EXISTS users (id_user INTEGER PRIMARY KEY AUTOINCREMENT, ifAdmin INTEGER, username TEXT, password TEXT)";
+        String createActivities = "CREATE TABLE IF NOT EXISTS activities (id_activity INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, duration TEXT, time TEXT, type TEXT, distance REAL, elevation INTEGER, user TEXT, trueID TEXT)";
         try {
             stat.execute(createUsers);
             stat.execute(createActivities);
@@ -41,7 +41,7 @@ public class DatabaseHelper {
         return true;
     }
 
-    public boolean insertUsers(boolean ifAdmin, String username, String password, int activityCount) {
+    public boolean insertUsers(boolean ifAdmin, String username, String password) {
         try {
             // Check if the user already exists
             PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
@@ -54,11 +54,10 @@ public class DatabaseHelper {
 
             // Insert the new user
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO users (ifAdmin, username, password, activityCount) VALUES (?, ?, ?, ?);");
+                    "INSERT INTO users (ifAdmin, username, password) VALUES (?, ?, ?);");
             prepStmt.setBoolean(1, ifAdmin);
             prepStmt.setString(2, username);
             prepStmt.setString(3, password);
-            prepStmt.setInt(4, activityCount);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Error inserting user");
@@ -68,10 +67,10 @@ public class DatabaseHelper {
         return true;
     }
 
-    public boolean insertActivities(String title, String location, String duration, String time, String type, double distance, int elevation, String user) {
+    public boolean insertActivities(String title, String location, String duration, String time, String type, double distance, int elevation, String user, String trueID) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO activities (title, location, duration, time, type, distance, elevation, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO activities (title, location, duration, time, type, distance, elevation, user, trueID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             prepStmt.setString(1, title);
             prepStmt.setString(2, location);
             prepStmt.setString(3, duration);
@@ -80,9 +79,47 @@ public class DatabaseHelper {
             prepStmt.setDouble(6, distance);
             prepStmt.setInt(7, elevation);
             prepStmt.setString(8, user);
+            prepStmt.setString(9, trueID);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Blad przy wstawianiu aktywnosci");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    public boolean deleteActivity(String trueID) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement("DELETE FROM activities WHERE trueID = ?");
+            prepStmt.setString(1, trueID);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Error deleting activity");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteUser(String username) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement("DELETE FROM users WHERE username = ?");
+            prepStmt.setString(1, username);
+            prepStmt.execute();
+            try {
+                PreparedStatement prepStmt2 = conn.prepareStatement("DELETE FROM activities WHERE user = ?");
+                prepStmt2.setString(1, username);
+                prepStmt2.execute();
+            } catch (SQLException e) {
+                System.err.println("Error deleting user activities");
+                e.printStackTrace();
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error deleting user");
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -101,7 +138,7 @@ public class DatabaseHelper {
                 ifAdmin = result.getBoolean("ifAdmin");
                 username = result.getString("username");
                 password = result.getString("password");
-                userss.add(new User(username, password));
+                userss.add(new User(username, password, ifAdmin));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,7 +153,7 @@ public class DatabaseHelper {
             ResultSet result = stat.executeQuery("SELECT * FROM activities");
             int id, elevation;
             double distance;
-            String title, location, duration, time, type, user;
+            String title, location, duration, time, type, user, trueID;
             while(result.next()) {
                 id = result.getInt("id_activity");
                 title = result.getString("title");
@@ -127,7 +164,8 @@ public class DatabaseHelper {
                 distance = result.getDouble("distance");
                 elevation = result.getInt("elevation");
                 user = result.getString("user");
-                activitiess.add(new Activity(user+":"+id ,title, location, duration, time, type, distance, elevation, user));
+                trueID = result.getString("trueID");
+                activitiess.add(new Activity(trueID ,title, location, duration, time, type, distance, elevation, user));
             }
         } catch (SQLException e) {
             e.printStackTrace();

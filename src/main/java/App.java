@@ -15,26 +15,26 @@ public class App {
     static DatabaseHelper dbHelper;
     
     public static void main(String[] args) {
-        // inicjalizacja bazy danych i wczytanie listy urzytkonikw z niej
         dbHelper = new DatabaseHelper();
 
 
         //zawsze jak dodaje urzytkownika do arraylisty to dodaje tez do bazy danych
-//        userArr.add(new User("a", "2"));
-//        dbHelper.insertUsers(userArr.get(0).ifAdmin, userArr.get(0).username, userArr.get(0).password, userArr.get(0).activityCount);
-//        userArr.add(new User("b", "3"));
-//        dbHelper.insertUsers(userArr.get(1).ifAdmin, userArr.get(1).username, userArr.get(1).password, userArr.get(1).activityCount);
+        userArr.add(new User("a", "2"));
+        dbHelper.insertUsers(userArr.get(0).ifAdmin, userArr.get(0).username, userArr.get(0).password);
+        userArr.add(new User("b", "3"));
+        dbHelper.insertUsers(userArr.get(1).ifAdmin, userArr.get(1).username, userArr.get(1).password);
 
         User adminUser = new User("admin", "admin");
         adminUser.switchAccountType();
         userArr.add(adminUser);
-//        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password, adminUser.activityCount);
+        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password);
         userArr = dbHelper.selectUsers();
         activityArr = dbHelper.selectActivities();
         for(User user : userArr){
             for(Activity activity : activityArr){
                 if(Objects.equals(activity.user, user.username)){
                     user.activities.add(activity);
+                    user.activityCount += 1;
                 }
             }
         }
@@ -49,7 +49,7 @@ public class App {
         post("/deleteActivities", (req, res) -> deleteActivities(req,res));
         post("/deleteUsers", (req, res) -> deleteUsers(req,res));
         post("/getActivityList", (req, res) -> getActivityList(req,res));
-        dbHelper.closeConnection();
+
     }
 
 //    public static void printAllActivities() {
@@ -126,7 +126,7 @@ public class App {
             activityArr.add(activity);
             loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
             loggedUser.activityCount += 1;
-            dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user);
+            dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id);
             System.out.println("Pomyślnie dodano aktywność");
             return(true);
         } else {
@@ -154,6 +154,7 @@ public class App {
                 System.out.println(toDelete.get(i));
                 for(int j = activityArr.size()-1;j>=0;j-=1){
                     if (Objects.equals(toDelete.get(i), activityArr.get(j).id)){
+                        dbHelper.deleteActivity(activityArr.get(j).id);
                         activityArr.remove(j);
                     }
                 }
@@ -180,6 +181,7 @@ public class App {
                 System.out.println(toDelete.get(i));
                 for(int j = userArr.size()-1;j>=0;j-=1){
                     if (Objects.equals(toDelete.get(i), userArr.get(j).username)){
+                        dbHelper.deleteUser(userArr.get(j).username);
                         userArr.remove(j);
                     }
                 }
