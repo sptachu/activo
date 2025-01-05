@@ -19,24 +19,27 @@ public class App {
 
 
         //zawsze jak dodaje urzytkownika do arraylisty to dodaje tez do bazy danych
-        userArr.add(new User("a", "2"));
-        dbHelper.insertUsers(userArr.get(0).ifAdmin, userArr.get(0).username, userArr.get(0).password);
-        userArr.add(new User("b", "3"));
-        dbHelper.insertUsers(userArr.get(1).ifAdmin, userArr.get(1).username, userArr.get(1).password);
+//        userArr.add(new User("a", "2"));
+//        dbHelper.insertUsers(userArr.get(0).ifAdmin, userArr.get(0).username, userArr.get(0).password);
+//        userArr.add(new User("b", "3"));
+//        dbHelper.insertUsers(userArr.get(1).ifAdmin, userArr.get(1).username, userArr.get(1).password);
 
-        User adminUser = new User("admin", "admin");
-        adminUser.switchAccountType();
-        userArr.add(adminUser);
-        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password);
+//        User adminUser = new User("admin", "admin");
+//        adminUser.switchAccountType();
+//        userArr.add(adminUser);
+//        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password);
         userArr = dbHelper.selectUsers();
         activityArr = dbHelper.selectActivities();
         for(User user : userArr){
+            String lastActivityId = "-1";
             for(Activity activity : activityArr){
                 if(Objects.equals(activity.user, user.username)){
                     user.activities.add(activity);
-                    user.activityCount += 1;
+//                    user.activityCount += 1;
+                    lastActivityId = activity.id.substring(activity.id.lastIndexOf(':') + 1);
                 }
             }
+            user.activityCount = Integer.parseInt(lastActivityId) + 1;
         }
         staticFiles.location("/public");
         get("/test", (req, res) -> "test");
@@ -48,8 +51,9 @@ public class App {
         post("/getUserList", (req, res) -> getUserList(req,res));
         post("/deleteActivities", (req, res) -> deleteActivities(req,res));
         post("/deleteUsers", (req, res) -> deleteUsers(req,res));
+        post("/deleteUser", (req, res) -> deleteUser(req,res));
         post("/getActivityList", (req, res) -> getActivityList(req,res));
-
+        post("/register", (req, res) -> register(req,res));
     }
 
 //    public static void printAllActivities() {
@@ -198,10 +202,48 @@ public class App {
         }
     }
 
+    public static boolean deleteUser(Request req, Response res){
+        if (loggedUser != null) {
+            for(int j = userArr.size()-1;j>=0;j-=1){
+                if (Objects.equals(loggedUser.username, userArr.get(j).username)){
+                    dbHelper.deleteUser(userArr.get(j).username);
+                    userArr.remove(j);
+                }
+            }
+            for(int g = activityArr.size()-1;g>=0;g-=1){
+                if (Objects.equals(loggedUser.username, activityArr.get(g).user)){
+                    activityArr.remove(g);
+                }
+            }
+            loggedUser = null;
+            return (true);
+        } else {
+            return (false);
+        }
+    }
+
     public static String getActivityList(Request req, Response res){
         Gson gson = new Gson();
         return(gson.toJson(activityArr));
     }
 
+    public static Integer register(Request req, Response res){
+        Gson gson = new Gson();
+        User userData = gson.fromJson(req.body(), User.class);
+
+        if (Objects.equals(userData.username, "") || Objects.equals(userData.password, "")) {
+            return(2);
+        }
+
+        for(int i = 0;i<userArr.size();i+=1){
+            if(Objects.equals(userData.username, userArr.get(i).username)){
+                return(1);
+            }
+        }
+
+        userArr.add(new User(userData.username, userData.password));
+        dbHelper.insertUsers(userData.ifAdmin, userData.username, userData.password);
+        return(0);
+    }
 
 }

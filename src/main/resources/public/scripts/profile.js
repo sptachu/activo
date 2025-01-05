@@ -59,6 +59,15 @@ window.onload = async () => {
 document.getElementById("homePageBtn").onclick = async () => {
     window.location = 'http://127.0.0.1:4567/';
 }
+document.getElementById("accountDelBtn").onclick = async () => {
+    let json = await fetchPostAsync3()
+    if (json){
+        alert("Pomyślnie usunięto konto")
+    } else {
+        alert("Nie udało się usunąć konta - użytkownik nie jest zalogowany")
+    }
+    window.location = 'http://127.0.0.1:4567/login.html';
+}
 
 fetchPostAsync = async () => {
 
@@ -91,6 +100,22 @@ fetchPostAsync2 = async () => {
     }
 
     let response = await fetch("/deleteActivities", options)
+
+    if (!response.ok) {
+        return response.status
+    }
+    else {
+        return await response.json() // response.json
+    }
+
+}
+
+fetchPostAsync3 = async () => {
+    const options = {
+        method: "POST",
+    }
+
+    let response = await fetch("/deleteUser", options)
 
     if (!response.ok) {
         return response.status
