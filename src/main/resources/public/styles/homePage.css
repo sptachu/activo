@@ -161,3 +161,93 @@ body {
 .activityDiv {
     border-style: solid;
 }
+
+
+/* Główny styl dla aktywności */
+.activity-card {
+    width: 95%; /* Zgodne z proporcjami z obrazka */
+    background-color: #f9f9f9;
+    border: 2px solid #a32cc4; /* Fioletowe cienkie obramowanie */
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px auto; /* Wyśrodkowanie na stronie */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Nagłówek: użytkownik + data i miejsce */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #a32cc4; /* Fioletowe tło */
+    border-radius: 8px;
+    padding: 8px; /* Dodanie odstępu wewnątrz nagłówka */
+    color: white; /* Biały tekst */
+}
+
+.initial-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #fff; /* Białe wnętrze kółka */
+    color: #a32cc4; /* Fioletowy tekst wewnątrz kółka */
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #fff; /* Dodanie białego obramowania dla kontrastu */
+}
+
+.user-info .username {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+    color: white; /* Biały tekst */
+}
+
+.user-info .date-location {
+    font-size: 14px;
+    color: #e0d6eb; /* Jasny odcień fioletu dla daty i miejsca */
+    margin: 0;
+}
+
+/* Sekcja tytułu treningu */
+.title-section {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.title-section .workout-type {
+    font-weight: normal;
+    color: #007bff;
+}
+
+/* Szczegóły treningu (grid) */
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dwie kolumny */
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.detail .label {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.detail .value {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}

@@ -55,15 +55,23 @@ public class Activity {
         long durationSeconds = User.toSeconds(duration);
         double pace = durationSeconds / distance;
         int paceInteger = (int) Math.round(pace);
-        return Integer.toString(paceInteger / 60)+":"+Integer.toString(paceInteger % 60)+" /km";
+        if (paceInteger % 60 < 10) {
+            return Integer.toString(paceInteger / 60) + ":0" + Integer.toString(paceInteger % 60) + " min/km";
+        } else {
+            return Integer.toString(paceInteger / 60) + ":" + Integer.toString(paceInteger % 60) + " min/km";
+        }
     }
 
 
     private static String swimPaceCalc(String duration, double distance) {
-    long durationSeconds = User.toSeconds(duration);
-    double pacePer100m = (durationSeconds / (distance * 1000)) * 100;
-    int paceInteger = (int) Math.round(pacePer100m);
-    return (paceInteger / 60) + ":" + (paceInteger % 60) + " /100m";
+        long durationSeconds = User.toSeconds(duration);
+        double pacePer100m = (durationSeconds / (distance * 1000)) * 100;
+        int paceInteger = (int) Math.round(pacePer100m);
+        if (paceInteger % 60 < 10) {
+            return (paceInteger / 60) + ":0" + (paceInteger % 60) + " min/100m";
+        } else {
+            return (paceInteger / 60) + ":" + (paceInteger % 60) + " min/100m";
+        }
     }
 
     private static String bikePaceCalc(String duration, double distance) {

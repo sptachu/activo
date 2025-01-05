@@ -33,7 +33,7 @@ input {
     box-sizing: border-box; /* Ensure padding doesn't break layout */
 }
 
-button {
+#btn {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -47,7 +47,7 @@ button {
     margin: 10px 0 0 0; /* Reduced margin */
 }
 
-button:hover {
+#btn:hover {
     background-color: #0056b3;
 }
 
@@ -55,4 +55,24 @@ a {
     position: absolute;
     right: 3%;
     top: 3%;
+}
+
+.styledBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center; /* Wyśrodkowanie tekstu */
+    display: block; /* Link jako element blokowy */
+    margin: 10px 0 0 0; /* Odstęp między elementami */
+    text-decoration: none; /* Usuń podkreślenie w linkach */
+    box-sizing: border-box; /* Upewnia się, że padding nie zmienia szerokości */
+}
+
+.styledBtn:hover {
+    background-color: #0056b3;
 }

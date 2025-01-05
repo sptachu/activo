@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="styles/loginPage.css">
 </head>
 <body>
-    <a href="register.html">rejestracja</a>
+
     <div>
         <h1>Logowanie</h1>
         <input id="username" placeholder="Username"/><br/>
         <input id="password" type="password" placeholder="Password"/><br/>
         <button id="btn">Zaloguj się</button>
+        <buttton class="styledBtn" onclick="window.location.href='register.html'">zarejestruj sie</buttton>
     </div>
     <script>
         document.getElementById("btn").onclick = async () => {
