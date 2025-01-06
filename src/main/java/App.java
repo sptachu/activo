@@ -41,6 +41,9 @@ public class App {
             }
             user.activityCount = Integer.parseInt(lastActivityId) + 1;
         }
+
+
+
         staticFiles.location("/public");
         get("/test", (req, res) -> "test");
         post("/login", (req, res) -> login(req, res));
@@ -130,12 +133,62 @@ public class App {
             activityArr.add(activity);
             loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
             loggedUser.activityCount += 1;
+
+            // linijka ponizej tymczasowo zakomentowana, bo nie dziala przez to ze sie cele nie dodaja nw czemu
+            //updateGoals(activity);
             dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id);
             System.out.println("Pomyślnie dodano aktywność");
             return(true);
         } else {
             System.out.println("Nie można dodać aktywności - najpierw się zaloguj");
             return(false);
+        }
+    }
+
+    public static void updateGoals(Activity acti) {
+        //calkowity czas aktywnosci update
+        long totalActiveTimeSec = User.toSeconds(loggedUser.totalActiveTime);
+        long actDurationSec = User.toSeconds(acti.duration);
+        totalActiveTimeSec += actDurationSec;
+        loggedUser.totalActiveTime = User.toFancyTime(totalActiveTimeSec);
+        loggedUser.timeDifference = User.timeToGoal(loggedUser.totalActiveTime, loggedUser.goalTotalActiveTime);
+
+        //calkowita odleglosc update
+        loggedUser.totalDistance += acti.distance;
+        loggedUser.distanceDifference = loggedUser.goalTotalDistance - loggedUser.totalDistance;
+
+        //najszybsze czasy update
+        if (acti.type.equals("run")&& acti.distance >= 10) {
+            long actTime = User.toSeconds(acti.duration);
+            double actTimeD = actTime;
+            actTimeD = actTimeD * (10 /  acti.distance);
+            actTime = (long) actTimeD;
+            if (actTime < User.toSeconds(loggedUser.tenKmRunTime)) {
+                loggedUser.tenKmRunTime = User.toFancyTime(actTime);
+                loggedUser.timeDifferenceRun = User.timeToGoal(loggedUser.tenKmRunTime, loggedUser.goalTenKmRunTime);
+            }
+        }
+
+        if (acti.type.equals("bike") && acti.distance >= 40) {
+            long actTime = User.toSeconds(acti.duration);
+            double actTimeD = actTime;
+            actTimeD = actTimeD * (40 /  acti.distance);
+            actTime = (long) actTimeD;
+            if (actTime < User.toSeconds(loggedUser.fortyKmBikeTime)) {
+                loggedUser.fortyKmBikeTime = User.toFancyTime(actTime);
+                loggedUser.timeDifferenceBike = User.timeToGoal(loggedUser.fortyKmBikeTime, loggedUser.goalFortyKmBikeTime);
+            }
+        }
+
+        if (acti.type.equals("swim") && acti.distance >= 0.4) {
+            long actTime = User.toSeconds(acti.duration);
+            double actTimeD = actTime;
+            actTimeD = actTimeD * (0.4 /  acti.distance);
+            actTime = (long) actTimeD;
+            if (actTime < User.toSeconds(loggedUser.fourHundredMetersSwimTime)) {
+                loggedUser.fourHundredMetersSwimTime = User.toFancyTime(actTime);
+                loggedUser.timeDifferenceSwim = User.timeToGoal(loggedUser.fourHundredMetersSwimTime, loggedUser.goalFourHundredMetersSwimTime);
+            }
         }
     }
 
@@ -242,7 +295,7 @@ public class App {
         }
 
         userArr.add(new User(userData.username, userData.password));
-        dbHelper.insertUsers(userData.ifAdmin, userData.username, userData.password);
+        dbHelper.insertUsers(userData.ifAdmin, userData.username, userData.password, userData.goalTotalActiveTime, userData.goalTenKmRunTime, userData.goalFortyKmBikeTime, userData.goalFourHundredMetersSwimTime, userData.goalTotalDistance);
         return(0);
     }
 

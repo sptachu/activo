@@ -14,7 +14,7 @@ public class Activity {
         this.title = title;
         this.location = location;
         this.duration = duration;
-        this.time = time;
+        this.time = time.replace("T", " ");
         this.type = type;
         this.distance = distance;
         this.elevation = elevation;

@@ -28,7 +28,7 @@ public class DatabaseHelper {
     }
 
     public boolean createTables() {
-        String createUsers = "CREATE TABLE IF NOT EXISTS users (id_user INTEGER PRIMARY KEY AUTOINCREMENT, ifAdmin INTEGER, username TEXT, password TEXT)";
+        String createUsers = "CREATE TABLE IF NOT EXISTS users (id_user INTEGER PRIMARY KEY AUTOINCREMENT, ifAdmin INTEGER, username TEXT, password TEXT, goalTotalActiveTime TEXT, goalTenKmRunTime TEXT, goalFortyKmBikeTime TEXT, goalFourHundredMetersSwimTime TEXT, goalTotalDistance REAL)";
         String createActivities = "CREATE TABLE IF NOT EXISTS activities (id_activity INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, duration TEXT, time TEXT, type TEXT, distance REAL, elevation INTEGER, user TEXT, trueID TEXT)";
         try {
             stat.execute(createUsers);
@@ -41,7 +41,7 @@ public class DatabaseHelper {
         return true;
     }
 
-    public boolean insertUsers(boolean ifAdmin, String username, String password) {
+    public boolean insertUsers(boolean ifAdmin, String username, String password, String goalTotalActiveTime, String goalTenKmRunTime, String goalFortyKmBikeTime, String goalFourHundredMetersSwimTime, double goalTotalDistance) {
         try {
             // Check if the user already exists
             PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE username = ?");
@@ -54,10 +54,15 @@ public class DatabaseHelper {
 
             // Insert the new user
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO users (ifAdmin, username, password) VALUES (?, ?, ?);");
+                    "INSERT INTO users (ifAdmin, username, password, goalTotalActiveTime, goalTenKmRunTime, goalFortyKmBikeTime, goalFourHundredMetersSwimTime, goalTotalDistance) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmt.setBoolean(1, ifAdmin);
             prepStmt.setString(2, username);
             prepStmt.setString(3, password);
+            prepStmt.setString(4, goalTotalActiveTime);
+            prepStmt.setString(5, goalTenKmRunTime);
+            prepStmt.setString(6, goalFortyKmBikeTime);
+            prepStmt.setString(7, goalFourHundredMetersSwimTime);
+            prepStmt.setDouble(8, goalTotalDistance);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Error inserting user");
@@ -138,7 +143,12 @@ public class DatabaseHelper {
                 ifAdmin = result.getBoolean("ifAdmin");
                 username = result.getString("username");
                 password = result.getString("password");
-                userss.add(new User(username, password, ifAdmin));
+                String goalTotalActiveTime = result.getString("goalTotalActiveTime");
+                String goalTenKmRunTime = result.getString("goalTenKmRunTime");
+                String goalFortyKmBikeTime = result.getString("goalFortyKmBikeTime");
+                String goalFourHundredMetersSwimTime = result.getString("goalFourHundredMetersSwimTime");
+                double goalTotalDistance = result.getDouble("goalTotalDistance");
+                userss.add(new User(username, password, ifAdmin, goalTotalActiveTime, goalTenKmRunTime, goalFortyKmBikeTime, goalFourHundredMetersSwimTime, goalTotalDistance));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,3 +1,4 @@
+// tylko jeden z activityButtons może być zaznaczony
 let typeInput;
 document.addEventListener("DOMContentLoaded", function() {
     const activityButtons = document.querySelectorAll(".activity-btn");
@@ -10,6 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
             typeInput.value = this.getAttribute("data-type");
         });
     });
+    // Set the current date and time to the time input field
+    const timeInput = document.getElementById("time");
+    const now = new Date();
+    now.setHours(now.getHours() + 1)
+    const formattedDateTime = now.toISOString().slice(0, 16).replace('T', ' '); // Format as YYYY-MM-DDTHH:MM
+    timeInput.value = formattedDateTime;
+    timeInput.readOnly = true; // Make the input field read-only
 });
 
 document.getElementById("submitActivityBtn").onclick = async () => {
