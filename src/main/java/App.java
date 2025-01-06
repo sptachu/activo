@@ -74,6 +74,9 @@ public class App {
                 if (Objects.equals(user.username, logData.username) && Objects.equals(user.password, logData.password)){
                     loggedUser = user;
                     logInStatus = true;
+                    for(Activity activity : loggedUser.activities){
+                        updateGoals(activity);
+                    }
                     System.out.println("Logowanie udane - zalogowano " + user.username);
                     break;
                 }
@@ -135,9 +138,9 @@ public class App {
             loggedUser.activityCount += 1;
 
             // linijka ponizej tymczasowo zakomentowana, bo nie dziala przez to ze sie cele nie dodaja nw czemu
-            //updateGoals(activity);
+            updateGoals(activity);
             dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id);
-            System.out.println("Pomyślnie dodano aktywność");
+            System.out.println("Pomyślnie dodano aktywność" + "total active time: " + loggedUser.totalActiveTime + " total distance: " + loggedUser.totalDistance);
             return(true);
         } else {
             System.out.println("Nie można dodać aktywności - najpierw się zaloguj");
@@ -295,7 +298,7 @@ public class App {
         }
 
         userArr.add(new User(userData.username, userData.password));
-        dbHelper.insertUsers(userData.ifAdmin, userData.username, userData.password, userData.goalTotalActiveTime, userData.goalTenKmRunTime, userData.goalFortyKmBikeTime, userData.goalFourHundredMetersSwimTime, userData.goalTotalDistance);
+        dbHelper.insertUsers(userArr.getLast().ifAdmin, userData.username, userData.password, userArr.getLast().goalTotalActiveTime, userArr.getLast().goalTenKmRunTime, userArr.getLast().goalFortyKmBikeTime, userArr.getLast().goalFourHundredMetersSwimTime, userArr.getLast().goalTotalDistance);
         return(0);
     }
 

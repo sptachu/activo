@@ -9,19 +9,19 @@ public class User {
     public String username;
     public String password;
     public int activityCount;
-    public String totalActiveTime;
+    public String totalActiveTime = "0:00:00";
     public String goalTotalActiveTime = "10:00:00";
     public String timeDifference = timeToGoal(totalActiveTime, goalTotalActiveTime);
-    public String tenKmRunTime;
+    public String tenKmRunTime = "100:00:00";
     public String goalTenKmRunTime = "0:45:00";
     public  String timeDifferenceRun = timeToGoal(tenKmRunTime, goalTenKmRunTime);
-    public String fortyKmBikeTime;
+    public String fortyKmBikeTime = "100:00:00";
     public String goalFortyKmBikeTime = "1:30:00";
     public String timeDifferenceBike = timeToGoal(fortyKmBikeTime, goalFortyKmBikeTime);
-    public String fourHundredMetersSwimTime;
+    public String fourHundredMetersSwimTime = "100:00:00";
     public String goalFourHundredMetersSwimTime = "0:06:00";
     public String timeDifferenceSwim = timeToGoal(fourHundredMetersSwimTime, goalFourHundredMetersSwimTime);
-    public double totalDistance;
+    public double totalDistance = 0.0;
     public double goalTotalDistance = 300.0;
     public double distanceDifference = goalTotalDistance - totalDistance;
 
@@ -29,15 +29,16 @@ public class User {
     public ArrayList<Activity> activities = new ArrayList<Activity>();
 
     public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.ifAdmin = false;
+
         this.activityCount = 0;
         this.goalTotalActiveTime = "10:00:00"; // nie wiem dlaczego przy tworzeniu nowego urzytkownika nie dodaja sie te cele tylko jest null
         this.goalTenKmRunTime = "0:45:00";
         this.goalFortyKmBikeTime = "1:30:00";
         this.goalFourHundredMetersSwimTime = "0:06:00";
         this.goalTotalDistance = 300.0;
+        this.username = username;
+        this.password = password;
+        this.ifAdmin = false;
     }
 
     public User (String username, String password, boolean ifAdmin, String goalTotalActiveTime, String goalTenKmRunTime, String goalFortyKmBikeTime, String goalFourHundredMetersSwimTime, double goalTotalDistance) {
