@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,46 +11,47 @@
     <div class="input-group">
         <label>Chcę trenować przez:</label>
         <div class="time-inputs">
-            <input type="number" id="training-time-hours" placeholder="HH" min="0" max="23">
-            <input type="number" id="training-time-minutes" placeholder="MM" min="0" max="59">
-            <input type="number" id="training-time-seconds" placeholder="SS" min="0" max="59">
+            <input type="number" id="goalTotalActiveTimeHours" placeholder="HH" min="0" >
+            <input type="number" id="goalTotalActiveTimeMinutes" placeholder="MM" min="0" max="59">
+            <input type="number" id="goalTotalActiveTimeSeconds" placeholder="SS" min="0" max="59">
         </div>
     </div>
 
     <div class="input-group">
-        <label for="distance">Chcę pokonać dystans:</label>
-        <input type="text" id="distance" placeholder="km">
+        <label >Chcę pokonać dystans:</label>
+        <input  id="goalTotalDistance" placeholder="km">
     </div>
 
     <div class="input-group">
         <label>Taki czas chcę biegać na 10 km:</label>
         <div class="time-inputs">
-            <input type="number" id="run-time-hours" placeholder="HH" min="0" max="23">
-            <input type="number" id="run-time-minutes" placeholder="MM" min="0" max="59">
-            <input type="number" id="run-time-seconds" placeholder="SS" min="0" max="59">
+            <input type="number" id="goalTenKmRunTimeHours" placeholder="HH" min="0">
+            <input type="number" id="goalTenKmRunTimeMinutes" placeholder="MM" min="0" max="59">
+            <input type="number" id="goalTenKmRunTimeSeconds" placeholder="SS" min="0" max="59">
         </div>
     </div>
 
     <div class="input-group">
         <label>Taki czas chcę pływać na 1 km:</label>
         <div class="time-inputs">
-            <input type="number" id="swim-time-hours" placeholder="HH" min="0" max="23">
-            <input type="number" id="swim-time-minutes" placeholder="MM" min="0" max="59">
-            <input type="number" id="swim-time-seconds" placeholder="SS" min="0" max="59">
+            <input type="number" id="goalFourHundredMetersSwimTimeHours" placeholder="HH" min="0">
+            <input type="number" id="goalFourHundredMetersSwimTimeMinutes" placeholder="MM" min="0" max="59">
+            <input type="number" id="goalFourHundredMetersSwimTimeSeconds" placeholder="SS" min="0" max="59">
         </div>
     </div>
 
     <div class="input-group">
         <label>Taki czas chcę jeździć na 40 km:</label>
         <div class="time-inputs">
-            <input type="number" id="bike-time-hours" placeholder="HH" min="0" max="23">
-            <input type="number" id="bike-time-minutes" placeholder="MM" min="0" max="59">
-            <input type="number" id="bike-time-seconds" placeholder="SS" min="0" max="59">
+            <input type="number" id="goalFortyKmBikeTimeHours" placeholder="HH" min="0">
+            <input type="number" id="goalFortyKmBikeTimeMinutes" placeholder="MM" min="0" max="59">
+            <input type="number" id="goalFortyKmBikeTimeSeconds" placeholder="SS" min="0" max="59">
         </div>
     </div>
 </div>
 
 <button class="submit-button" id="submitGoalsBtn">Potwierdź</button>
+<script src="scripts/updateGoals.js"></script>
 </body>
 </html>
 

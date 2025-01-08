@@ -84,7 +84,7 @@ body {
     touch-action: manipulation;
 }
 
-#addActivityBtn {
+.usefulBtn {
     background-color: #ffffff;
     border-radius: 8px;
     border-width: 0;
