@@ -28,6 +28,8 @@ public class App {
 //        adminUser.switchAccountType();
 //        userArr.add(adminUser);
 //        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password);
+//        dbHelper.insertUsers(userArr.get(userArr.size()-1).ifAdmin, adminUser.username, adminUser.password, userArr.get(userArr.size()-1).goalTotalActiveTime, userArr.get(userArr.size()-1).goalTenKmRunTime, userArr.get(userArr.size()-1).goalFortyKmBikeTime, userArr.get(userArr.size()-1).goalFourHundredMetersSwimTime, userArr.get(userArr.size()-1).goalTotalDistance);
+
         userArr = dbHelper.selectUsers();
         activityArr = dbHelper.selectActivities();
         for(User user : userArr){
@@ -57,6 +59,7 @@ public class App {
         post("/deleteUser", (req, res) -> deleteUser(req,res));
         post("/getActivityList", (req, res) -> getActivityList(req,res));
         post("/register", (req, res) -> register(req,res));
+        post("/updateActivity", (req, res) -> updateActivity(req,res));
     }
 
 //    public static void printAllActivities() {
@@ -298,8 +301,43 @@ public class App {
         }
 
         userArr.add(new User(userData.username, userData.password));
-        dbHelper.insertUsers(userArr.getLast().ifAdmin, userData.username, userData.password, userArr.getLast().goalTotalActiveTime, userArr.getLast().goalTenKmRunTime, userArr.getLast().goalFortyKmBikeTime, userArr.getLast().goalFourHundredMetersSwimTime, userArr.getLast().goalTotalDistance);
+        dbHelper.insertUsers(userArr.get(userArr.size()-1).ifAdmin, userData.username, userData.password, userArr.get(userArr.size()-1).goalTotalActiveTime, userArr.get(userArr.size()-1).goalTenKmRunTime, userArr.get(userArr.size()-1).goalFortyKmBikeTime, userArr.get(userArr.size()-1).goalFourHundredMetersSwimTime, userArr.get(userArr.size()-1).goalTotalDistance);
         return(0);
     }
 
+    public static boolean updateActivity(Request req, Response res){
+        Gson gson = new Gson();
+        Activity activityParams = gson.fromJson(req.body(), Activity.class);
+        System.out.println(activityParams.id);
+//        if (loggedUser != null) {
+//            long durationRepairer = User.toSeconds(activityParams.duration);
+//            activityParams.duration = User.toFancyTime(durationRepairer);
+//            // te dwie linijki powyzej naprawiaja czas do formatu w ktorym minuty i sekundy nie sa wieksze ni 60
+//            // tak zeby czas pomimo bledu uzytkownika byl zapisany w poprawny sposob
+//
+//            Activity activity = new Activity(
+//                    activityParams.title,
+//                    activityParams.location,
+//                    activityParams.duration,
+//                    activityParams.time,
+//                    activityParams.type,
+//                    activityParams.distance,   // dystans zawsze musi byc podany w km
+//                    activityParams.elevation,
+//                    loggedUser
+//            );
+//            activityArr.add(activity);
+//            loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
+//            loggedUser.activityCount += 1;
+//
+//            // linijka ponizej tymczasowo zakomentowana, bo nie dziala przez to ze sie cele nie dodaja nw czemu
+//            updateGoals(activity);
+//            dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id);
+//            System.out.println("Pomyślnie dodano aktywność" + "total active time: " + loggedUser.totalActiveTime + " total distance: " + loggedUser.totalDistance);
+//            return(true);
+//        } else {
+//            System.out.println("Nie można dodać aktywności - najpierw się zaloguj");
+//            return(false);
+//        }
+        return(true);
+    }
 }
