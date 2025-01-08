@@ -184,6 +184,25 @@ public class DatabaseHelper {
         return activitiess;
     }
 
+    public boolean updateUsers(String username, String goalTotalActiveTime, String goalTenKmRunTime, String goalFortyKmBikeTime, String goalFourHundredMetersSwimTime, double goalTotalDistance) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "UPDATE users SET goalTotalActiveTime = ?, goalTenKmRunTime = ?, goalFortyKmBikeTime = ?, goalFourHundredMetersSwimTime = ?, goalTotalDistance = ? WHERE username = ?");
+            prepStmt.setString(1, goalTotalActiveTime);
+            prepStmt.setString(2, goalTenKmRunTime);
+            prepStmt.setString(3, goalFortyKmBikeTime);
+            prepStmt.setString(4, goalFourHundredMetersSwimTime);
+            prepStmt.setDouble(5, goalTotalDistance);
+            prepStmt.setString(6, username);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Error updating user");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     public void closeConnection() {
         try {
             conn.close();
