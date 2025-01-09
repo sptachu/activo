@@ -146,14 +146,62 @@ body {
     background-color: #e7f1fc;
 }
 
+
+
+
+
 .goalsAndTimesTable {
-    width: 97%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-th:first-child {
-    visibility: hidden;
+.goalsAndTimesTable th,
+.goalsAndTimesTable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
 }
+
+.goalsAndTimesTable th {
+    background-color: #b726f5; /* Fioletowy pasujący do nagłówka */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.goalsAndTimesTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.goalsAndTimesTable tr:hover {
+    background-color: #f5e6fa; /* Delikatny fioletowy odcień */
+}
+
+.goalsAndTimesTable td {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.description th {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.distance td,
+.sumTime td,
+.runTime td,
+.bikeTime td,
+.swimTime td {
+    text-align: left;
+}
+
+
 
 .main-column {
     width: 60%;

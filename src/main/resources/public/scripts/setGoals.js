@@ -28,6 +28,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 document.getElementById("submitGoalsBtn").onclick = async () => {
+    const inputs = [
+        "goalTotalActiveTimeHours", "goalTotalActiveTimeMinutes", "goalTotalActiveTimeSeconds",
+        "goalTotalDistance",
+        "goalTenKmRunTimeHours", "goalTenKmRunTimeMinutes", "goalTenKmRunTimeSeconds",
+        "goalFortyKmBikeTimeHours", "goalFortyKmBikeTimeMinutes", "goalFortyKmBikeTimeSeconds",
+        "goalFourHundredMetersSwimTimeHours", "goalFourHundredMetersSwimTimeMinutes", "goalFourHundredMetersSwimTimeSeconds"
+    ];
+
+    for (let id of inputs) {
+        if (!document.getElementById(id).value) {
+            alert("żadne pole nie może być puste");
+            return;
+        }
+    }
+
     let json = await fetchPostAsync2()
     console.log(json)
     if (json){

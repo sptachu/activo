@@ -25,6 +25,22 @@ document.getElementById("submitActivityBtn").onclick = async () => {
         alert("Please select an activity type.");
         return;
     }
+
+    const requiredInputs = ["title", "time", "type", "location", "elevation", "distance"];
+    for (const inputId of requiredInputs) {
+        if (!document.getElementById(inputId).value) {
+            alert("Wypełnij wszystkie pola");
+            return;
+        }
+    }
+    const requiredTimeInputs = ["hours", "minutes", "seconds"];
+    const isAnyTimeInputFilled = requiredTimeInputs.some(inputId => document.getElementById(inputId).value);
+
+    if (!isAnyTimeInputFilled) {
+        alert("wypełnij chociaż jedno pole czasu");
+        return;
+    }
+
     let json = await fetchPostAsync()
     console.log(json)
     if (json){

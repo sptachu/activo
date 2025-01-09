@@ -159,7 +159,7 @@ public class App {
         long actDurationSec = User.toSeconds(acti.duration);
         totalActiveTimeSec += actDurationSec;
         loggedUser.totalActiveTime = User.toFancyTime(totalActiveTimeSec);
-        loggedUser.timeDifference = User.timeToGoal(loggedUser.totalActiveTime, loggedUser.goalTotalActiveTime);
+        loggedUser.timeDifference = User.timeToGoalTotalTime(loggedUser.totalActiveTime, loggedUser.goalTotalActiveTime);
 
         //calkowita odleglosc update
         loggedUser.totalDistance += acti.distance;

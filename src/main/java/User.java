@@ -91,9 +91,9 @@ public class User {
             long goalTimeInSeconds = toSeconds(goalTime);
             long timeToGoalInSeconds = timeInSeconds - goalTimeInSeconds;
             if (timeInSeconds < goalTimeInSeconds) {
-                return "Time is faster than the goal time!";
+                return "zrealizowano cel!";
             } else if (timeToGoalInSeconds < 60) {
-                return timeToGoalInSeconds + " seconds";
+                return timeToGoalInSeconds + " s";
             } else if (timeToGoalInSeconds < 3600) {
                 long minutes = timeToGoalInSeconds / 60;
                 long seconds = timeToGoalInSeconds % 60;
@@ -114,13 +114,13 @@ public class User {
             if (timeInSeconds > goalTimeInSeconds) {
                 return "Trenujesz już wiecej niz zamierzałeś!";
             } else if (timeToGoalInSeconds < 60) {
-                return "brakuje jeszcze: " + timeToGoalInSeconds + " seconds";
+                return timeToGoalInSeconds + " s";
             } else if (timeToGoalInSeconds < 3600) {
                 long minutes = timeToGoalInSeconds / 60;
                 long seconds = timeToGoalInSeconds % 60;
-                return "brakuje jescze: " + minutes + "m " + seconds + "s";
+                return minutes + "m " + seconds + "s";
             } else {
-                return "brakuje jeszcze: " + toFancyTime(timeToGoalInSeconds);
+                return toFancyTime(timeToGoalInSeconds);
             }
         }
     }

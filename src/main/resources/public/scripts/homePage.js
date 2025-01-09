@@ -105,6 +105,37 @@ window.onload = async () => {
             // Dodanie do głównego kontenera na stronie
             document.getElementById("activities").appendChild(activityDiv);
         }
+        // dodawanie celów do tabelki
+        document.getElementById("totalDistance").innerText = json.totalDistance + " km";
+        document.getElementById("goalTotalDistance").innerText = json.goalTotalDistance + " km";
+        document.getElementById("differenceTotalDistance").innerText = json.distanceDifference + " km";
+        document.getElementById("totalTime").innerText = json.totalActiveTime;
+        document.getElementById("goalTotalTime").innerText = json.goalTotalActiveTime;
+        document.getElementById("differenceTotalTime").innerText = json.timeDifference;
+        if(json.tenKmRunTime === "100:00:00") {
+            document.getElementById("tenKmRun").innerText = "przebiegnnij 10 km"
+            document.getElementById("differenceTenKmRun").innerText = "--:--:--";
+        } else {
+            document.getElementById("tenKmRun").innerText = json.tenKmRunTime;
+            document.getElementById("differenceTenKmRun").innerText = json.timeDifferenceRun;
+        }
+        if(json.fortyKmBikeTime === "100:00:00") {
+            document.getElementById("fortyKmBike").innerText = "przejedź 40 km"
+            document.getElementById("differenceFortyKmBike").innerText = "--:--:--";
+        } else {
+            document.getElementById("fortyKmBike").innerText = json.fortyKmBikeTime
+            document.getElementById("differenceFortyKmBike").innerText = json.timeDifferenceBike;
+        }
+        if(json.fourHundredMetersSwimTime === "100:00:00") {
+            document.getElementById("fourHundredMetersSwim").innerText = "przepłyń 400 m"
+            document.getElementById("differenceFourHundredMetersSwim").innerText = "--:--:--";
+        } else {
+            document.getElementById("fourHundredMetersSwim").innerText = json.fourHundredMetersSwimTime;
+            document.getElementById("differenceFourHundredMetersSwim").innerText = json.timeDifferenceSwim;
+        }
+        document.getElementById("goalTenKmRun").innerText = json.goalTenKmRunTime;
+        document.getElementById("goalFortyKmBike").innerText = json.goalFortyKmBikeTime;
+        document.getElementById("goalFourHundredMetersSwim").innerText = json.goalFourHundredMetersSwimTime;
     }
 };
 
