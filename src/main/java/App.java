@@ -60,6 +60,7 @@ public class App {
         post("/getActivityList", (req, res) -> getActivityList(req,res));
         post("/register", (req, res) -> register(req,res));
         post("/updateActivity", (req, res) -> updateActivity(req,res));
+        post("/setGoals", (req, res) -> setGoals(req,res));
     }
 
 //    public static void printAllActivities() {
@@ -80,6 +81,7 @@ public class App {
                     for(Activity activity : loggedUser.activities){
                         updateGoals(activity);
                     }
+                    basicUpdateTimeDifferences(loggedUser);
                     System.out.println("Logowanie udane - zalogowano " + user.username);
                     break;
                 }
@@ -340,4 +342,38 @@ public class App {
 //        }
         return(true);
     }
+
+    public static boolean setGoals(Request req, Response res){
+        Gson gson = new Gson();
+        User userData = gson.fromJson(req.body(), User.class);
+        if (loggedUser != null) {
+            loggedUser.goalTotalActiveTime = User.toFancyTime(User.toSeconds(userData.goalTotalActiveTime));
+            loggedUser.goalTenKmRunTime = User.toFancyTime(User.toSeconds(userData.goalTenKmRunTime));
+            loggedUser.goalFortyKmBikeTime = User.toFancyTime(User.toSeconds(userData.goalFortyKmBikeTime));
+            loggedUser.goalFourHundredMetersSwimTime = User.toFancyTime(User.toSeconds(userData.goalFourHundredMetersSwimTime));
+            loggedUser.goalTotalDistance = userData.goalTotalDistance;
+            dbHelper.updateUsers(loggedUser.username, loggedUser.goalTotalActiveTime, loggedUser.goalTenKmRunTime, loggedUser.goalFortyKmBikeTime, loggedUser.goalFourHundredMetersSwimTime, loggedUser.goalTotalDistance);
+
+            if(!loggedUser.activities.isEmpty()){
+                for(Activity activity : loggedUser.activities){
+                    updateGoals(activity);
+                }
+            } else {
+                basicUpdateTimeDifferences(loggedUser);
+            }
+
+            return(true);
+        } else {
+            return(false);
+        }
+    }
+
+    public static void basicUpdateTimeDifferences(User user){
+        user.timeDifference = User.timeToGoalTotalTime(user.totalActiveTime, user.goalTotalActiveTime);
+        user.distanceDifference = user.goalTotalDistance - user.totalDistance;
+        user.timeDifferenceRun = User.timeToGoal(user.tenKmRunTime, user.goalTenKmRunTime);
+        user.timeDifferenceBike = User.timeToGoal(user.fortyKmBikeTime, user.goalFortyKmBikeTime);
+        user.timeDifferenceSwim = User.timeToGoal(user.fourHundredMetersSwimTime, user.goalFourHundredMetersSwimTime);
+    }
+
 }

@@ -27,6 +27,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("goalFourHundredMetersSwimTimeSeconds").value = goalFourHundredMetersSwimTime[2];
 });
 
+document.getElementById("submitGoalsBtn").onclick = async () => {
+    let json = await fetchPostAsync2()
+    console.log(json)
+    if (json){
+        window.location = 'http://127.0.0.1:4567/';
+    }
+    alert(JSON.stringify(json, null, 5))
+}
+
+
 
 fetchPostAsync = async () => {
     const options = {
@@ -40,4 +50,29 @@ fetchPostAsync = async () => {
     } else {
         return await response.json();
     }
+}
+
+fetchPostAsync2 = async () => {
+    const dat = JSON.stringify({
+        goalTotalActiveTime: document.getElementById("goalTotalActiveTimeHours").value + ":" + document.getElementById("goalTotalActiveTimeMinutes").value + ":" + document.getElementById("goalTotalActiveTimeSeconds").value,
+        goalTotalDistance: document.getElementById("goalTotalDistance").value,
+        goalTenKmRunTime: document.getElementById("goalTenKmRunTimeHours").value + ":" + document.getElementById("goalTenKmRunTimeMinutes").value + ":" + document.getElementById("goalTenKmRunTimeSeconds").value,
+        goalFortyKmBikeTime: document.getElementById("goalFortyKmBikeTimeHours").value + ":" + document.getElementById("goalFortyKmBikeTimeMinutes").value + ":" + document.getElementById("goalFortyKmBikeTimeSeconds").value,
+        goalFourHundredMetersSwimTime: document.getElementById("goalFourHundredMetersSwimTimeHours").value + ":" + document.getElementById("goalFourHundredMetersSwimTimeMinutes").value + ":" + document.getElementById("goalFourHundredMetersSwimTimeSeconds").value,
+    })
+
+    const options = {
+        method: "POST",
+        body: dat,
+    }
+
+    let response = await fetch("/setGoals", options)
+
+    if (!response.ok) {
+        return response.status
+    }
+    else {
+        return await response.json() // response.json
+    }
+
 }

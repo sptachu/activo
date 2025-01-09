@@ -89,7 +89,7 @@ public class User {
         } else {
             long timeInSeconds = toSeconds(time);
             long goalTimeInSeconds = toSeconds(goalTime);
-            long timeToGoalInSeconds = goalTimeInSeconds - timeInSeconds;
+            long timeToGoalInSeconds = timeInSeconds - goalTimeInSeconds;
             if (timeInSeconds < goalTimeInSeconds) {
                 return "Time is faster than the goal time!";
             } else if (timeToGoalInSeconds < 60) {
@@ -100,6 +100,27 @@ public class User {
                 return minutes + "m " + seconds + "s";
             } else {
                 return toFancyTime(timeToGoalInSeconds);
+            }
+        }
+    }
+
+    public static String timeToGoalTotalTime(String time, String goalTime) {
+        if(time == null || goalTime == null) {
+            return "No time set";
+        } else {
+            long timeInSeconds = toSeconds(time);
+            long goalTimeInSeconds = toSeconds(goalTime);
+            long timeToGoalInSeconds = goalTimeInSeconds - timeInSeconds;
+            if (timeInSeconds > goalTimeInSeconds) {
+                return "Trenujesz już wiecej niz zamierzałeś!";
+            } else if (timeToGoalInSeconds < 60) {
+                return "brakuje jeszcze: " + timeToGoalInSeconds + " seconds";
+            } else if (timeToGoalInSeconds < 3600) {
+                long minutes = timeToGoalInSeconds / 60;
+                long seconds = timeToGoalInSeconds % 60;
+                return "brakuje jescze: " + minutes + "m " + seconds + "s";
+            } else {
+                return "brakuje jeszcze: " + toFancyTime(timeToGoalInSeconds);
             }
         }
     }
