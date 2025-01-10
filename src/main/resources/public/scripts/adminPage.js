@@ -8,23 +8,28 @@ window.onload = async () => {
             let userDiv = document.createElement("div")
             let h2 = document.createElement("h2")
             userDiv.id = userJson[i].username
+            userDiv.className = "userDiv"
             document.getElementById("userList").appendChild(userDiv)
             userDiv.appendChild(h2)
             h2.innerText = userJson[i].username
+            h2.className = "username"
             let userCheckbox = document.createElement("input")
             userCheckbox.type = "checkbox"
             userCheckbox.name = "userCheckbox"
             userCheckbox.id = userJson[i].username
+            userCheckbox.className = "userCheckbox"
             if (userJson[i].username != json.username){
                 h2.appendChild(userCheckbox)
             }
 
             for (let j=0;j<userJson[i].activities.length;j++){
                 let activityDiv = document.createElement("div")
+                activityDiv.className = "activityDiv"
                 let checkbox = document.createElement("input")
                 checkbox.type = "checkbox"
                 checkbox.name = "checkbox"
                 checkbox.id = userJson[i].activities[j].id
+                checkbox.className = "activityCheckbox"
                 userDiv.appendChild(activityDiv)
                 activityDiv.innerText = userJson[i].activities[j].title
                 activityDiv.appendChild(checkbox)

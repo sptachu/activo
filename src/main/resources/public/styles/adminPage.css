@@ -1,87 +1,123 @@
-body {
+/* styles/adminPage.css */
+
+/* Ogólny reset stylów */
+body, h1, h2, h3, p, ul, ol, li, button, div, input {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styl dla całego ciała strony */
+body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* bardzo jasny niebieski */
-}
-
-.container {
-    display: flex;
-    height: 100vh;
-}
-
-.section {
-    flex: 1;
-    padding: 20px;
+    background-color: #f0f0f5; /* Jasnoszary */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color: #ffffff; /* biały */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
 }
 
-.section:nth-child(1) {
-    border-right: 2px solid #d8d8f6; /* jasny fioletowy */
-}
-
-h2 {
-    color: #a32cc4; /* indigo */
-}
-
-input[type="checkbox"] {
-    margin-left: 10px;
-    transform: scale(1.2);
-}
-
-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #a32cc4; /* indigo */
-    color: #ffffff; /* biały */
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #b726f5; /* medium slate blue */
-}
-
-#submitBtn {
-    margin-top: 20px;
-}
-
-#submitBtn2 {
-    margin-top: 20px;
-}
-
-#activityList, #userList {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.section footer {
-    display: flex;
-    justify-content: center;
-}
-
+/* Top button container */
 .top-button-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+    background-color: #4a4ae0; /* Fioletowy */
+    padding: 10px;
+    text-align: center;
 }
 
 #topButton {
-    padding: 10px 15px;
+    background-color: #0056b3; /* Niebieski */
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #a32cc4; /* indigo */
-    color: #ffffff; /* white */
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 #topButton:hover {
-    background-color: #b726f5; /* medium slate blue */
+    background-color: #003f80; /* Ciemniejszy niebieski */
+}
+
+/* Container stylizujący listę użytkowników */
+.container {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Styl dla użytkowników */
+.userDiv {
+    background-color: #e0e0f8; /* Bardzo jasny fiolet */
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.username {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.userCheckbox {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Styl dla aktywności */
+.activityDiv {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #d0d0f0; /* Jasny fiolet */
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activityCheckbox {
+    cursor: pointer;
+}
+
+/* Styl dla przycisków w stopce */
+footer {
+    background-color: #4a4ae0; /* Fioletowy */
+    padding: 10px;
+    text-align: center;
+    margin-top: auto;
+}
+
+#logOutBtn {
+    background-color: #0056b3; /* Niebieski */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#logOutBtn:hover {
+    background-color: #003f80; /* Ciemniejszy niebieski */
+}
+
+/* Styl dla przycisków akcji */
+#submitBtn, #submitBtn2 {
+    margin: 10px;
+    background-color: #4a4ae0; /* Fioletowy */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#submitBtn:hover, #submitBtn2:hover {
+    background-color: #3737a6; /* Ciemniejszy fiolet */
 }

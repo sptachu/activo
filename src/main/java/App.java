@@ -24,10 +24,10 @@ public class App {
 //        userArr.add(new User("b", "3"));
 //        dbHelper.insertUsers(userArr.get(1).ifAdmin, userArr.get(1).username, userArr.get(1).password);
 
-//        User adminUser = new User("admin", "admin");
-//        adminUser.switchAccountType();
-//        userArr.add(adminUser);
-//        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password);
+        User adminUser = new User("admin", "admin");
+        adminUser.switchAccountType();
+        userArr.add(adminUser);
+        dbHelper.insertUsers(adminUser.ifAdmin, adminUser.username, adminUser.password, adminUser.goalTotalActiveTime, adminUser.goalTenKmRunTime, adminUser.goalFortyKmBikeTime, adminUser.goalFourHundredMetersSwimTime, adminUser.goalTotalDistance);
 //        dbHelper.insertUsers(userArr.get(userArr.size()-1).ifAdmin, adminUser.username, adminUser.password, userArr.get(userArr.size()-1).goalTotalActiveTime, userArr.get(userArr.size()-1).goalTenKmRunTime, userArr.get(userArr.size()-1).goalFortyKmBikeTime, userArr.get(userArr.size()-1).goalFourHundredMetersSwimTime, userArr.get(userArr.size()-1).goalTotalDistance);
 
         userArr = dbHelper.selectUsers();
