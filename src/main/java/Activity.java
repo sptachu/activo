@@ -89,5 +89,8 @@ public class Activity {
     return String.format("%.2f km/h", pace);
     }
 
+    public void setLikingUsers(ArrayList<String> l){
+        this.likingUsers = l;
+    }
 
 }

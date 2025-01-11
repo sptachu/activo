@@ -69,6 +69,29 @@ window.onload = async () => {
             let userInfo = document.createElement("div");
             userInfo.classList.add("user-info");
 
+            let likeWrapper = document.createElement("div");
+            likeWrapper.classList.add("like-wrapper");
+
+            let likeButton = document.createElement("button");
+            likeButton.classList.add("like-button");
+            likeButton.id = activityJson[i].id + "a"
+            if (activityJson[i].likingUsers.includes(json.username)){
+                likeButton.innerText = likeButton.innerText = "Już nie lubię";
+            } else {
+                likeButton.innerText = likeButton.innerText = "Lubię to";
+            }
+
+            let likeCounter = document.createElement("div");
+            likeCounter.classList.add("like-counter");
+            likeCounter.id = activityJson[i].id + "aa"
+            if (activityJson[i].likingUsers[0] !== ""){
+                likeCounter.innerText = activityJson[i].likingUsers.length;
+            } else {
+                likeCounter.innerText = activityJson[i].likingUsers.length - 1;
+            }
+            likeWrapper.appendChild(likeButton);
+            likeWrapper.appendChild(likeCounter);
+
             let username = document.createElement("p");
             username.classList.add("username");
             username.innerText = activityJson[i].user;
@@ -81,6 +104,7 @@ window.onload = async () => {
             userInfo.appendChild(dateLocation);
             header.appendChild(initialCircle);
             header.appendChild(userInfo);
+            header.appendChild(likeWrapper);
 
             // Sekcja tytułu treningu
             let titleSection = document.createElement("div");
@@ -105,6 +129,22 @@ window.onload = async () => {
             // Dodanie do głównego kontenera na stronie
             document.getElementById("activities").appendChild(activityDiv);
         }
+        let elements = document.getElementsByClassName("like-button");
+
+        for(let i = 0; i < elements.length; i++) {
+            elements[i].onclick = e => {
+                console.log(e.target)
+                let id = e.target.id.substring(0, e.target.id.length - 1)
+                let action = 0;
+                if(e.target.innerText === "Lubię to") {
+                    action = 1;
+                } else if (e.target.innerText === "Już nie lubię") {
+                    action = 2;
+                }
+                likeHandle(id, action)
+            }
+        }
+
         // dodawanie celów do tabelki
         document.getElementById("totalDistance").innerText = json.totalDistance + " km";
         document.getElementById("goalTotalDistance").innerText = json.goalTotalDistance + " km";
@@ -155,6 +195,24 @@ function createDetail(labelText, valueText) {
     detail.appendChild(label);
     detail.appendChild(value);
     return detail;
+}
+
+async function likeHandle(id, action) {
+    let json = await fetchPostAsync5(id)
+    alert(JSON.stringify(json, null, 5))
+    if(json){
+        if (action === 1) {
+            document.getElementById(id+"aa").innerText = parseInt(document.getElementById(id+"aa").innerText) + 1
+            document.getElementById(id+"a").innerText = "Już nie lubię"
+        } else if(action === 2) {
+            document.getElementById(id+"aa").innerText = parseInt(document.getElementById(id+"aa").innerText) - 1
+            document.getElementById(id+"a").innerText = "Lubię to"
+        } else {
+            alert("Błąd")
+        }
+    } else {
+        window.location = 'http://127.0.0.1:4567/login.html';
+    }
 }
 
 
@@ -246,4 +304,21 @@ fetchPostAsync4 = async () => {
     }
 }
 
+fetchPostAsync5 = async (id) => {
+    let dat = JSON.stringify(id);
 
+    const options = {
+        method: "POST",
+        body: dat,
+    }
+
+    let response = await fetch("/likePost", options)
+
+    if (!response.ok) {
+        return response.status
+    }
+    else {
+        return await response.json() // response.json
+    }
+
+}

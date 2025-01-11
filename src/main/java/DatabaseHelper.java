@@ -1,5 +1,7 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:users.db";
@@ -224,6 +226,43 @@ public class DatabaseHelper {
             return false;
         }
         return true;
+    }
+
+    public boolean updateLikes(String trueID, String newString) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "UPDATE activities SET likingUsers = ? WHERE trueId = ?");
+            prepStmt.setString(1, newString);
+            prepStmt.setString(2, trueID);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Error updating activity");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public List<String> getLikes(String activityId) {
+        List<String> likingUsers = new ArrayList<>();
+
+        try {
+             PreparedStatement stmt = conn.prepareStatement("SELECT likingUsers FROM activities WHERE trueID = ?");
+
+            stmt.setString(1, activityId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String likingUsersStr = rs.getString("likingUsers");
+                    if (likingUsersStr != null && !likingUsersStr.isEmpty()) {
+                        likingUsers = Arrays.asList(likingUsersStr.split(","));
+                    }
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return likingUsers;
     }
 
     public void closeConnection() {

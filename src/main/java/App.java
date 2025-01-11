@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -61,6 +62,7 @@ public class App {
         post("/register", (req, res) -> register(req,res));
         post("/updateActivity", (req, res) -> updateActivity(req,res));
         post("/setGoals", (req, res) -> setGoals(req,res));
+        post("/likePost", (req, res) -> likePost(req,res));
     }
 
 //    public static void printAllActivities() {
@@ -144,7 +146,7 @@ public class App {
 
             // linijka ponizej tymczasowo zakomentowana, bo nie dziala przez to ze sie cele nie dodaja nw czemu
             updateGoals(activity, "add", loggedUser);
-            dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id);
+            dbHelper.insertActivities(activity.title, activity.location, activity.duration, activity.time, activity.type, activity.distance, activity.elevation, activity.user, activity.id, "");
             System.out.println("Pomyślnie dodano aktywność" + "total active time: " + loggedUser.totalActiveTime + " total distance: " + loggedUser.totalDistance);
             return(true);
         } else {
@@ -225,16 +227,16 @@ public class App {
                 }
             }
             if (fastestRun == Long.MAX_VALUE){
-                user.tenKmRunTime = null;
-                user.timeDifferenceRun = null;
+                user.tenKmRunTime = "100:00:00";
+                user.timeDifferenceRun = User.timeToGoal(user.tenKmRunTime, user.goalTenKmRunTime);
             }
             if (fastestBike == Long.MAX_VALUE){
-                user.fortyKmBikeTime = null;
-                user.timeDifferenceBike = null;
+                user.fortyKmBikeTime = "100:00:00";
+                user.timeDifferenceBike = User.timeToGoal(user.fortyKmBikeTime, user.goalFortyKmBikeTime);
             }
             if (fastestSwim == Long.MAX_VALUE){
-                user.fourHundredMetersSwimTime = null;
-                user.timeDifferenceSwim = null;
+                user.fourHundredMetersSwimTime = "100:00:00";
+                user.timeDifferenceSwim = User.timeToGoal(user.fourHundredMetersSwimTime, user.goalFourHundredMetersSwimTime);
             }
         }
     }
@@ -368,6 +370,7 @@ public class App {
                     loggedUser
             );
             activity.id = activityParams.id;
+            activity.likingUsers = new ArrayList<>(dbHelper.getLikes(activityParams.id));
 //            activityArr.add(activity);
 //            loggedUser.activities.add(activity); // dodanie aktywności do listy aktywności użytkownika oprócz tego że jest tez w ogolnej liscie aktywnosci
 
@@ -426,6 +429,42 @@ public class App {
         user.timeDifferenceRun = User.timeToGoal(user.tenKmRunTime, user.goalTenKmRunTime);
         user.timeDifferenceBike = User.timeToGoal(user.fortyKmBikeTime, user.goalFortyKmBikeTime);
         user.timeDifferenceSwim = User.timeToGoal(user.fourHundredMetersSwimTime, user.goalFourHundredMetersSwimTime);
+    }
+
+    public static boolean likePost(Request req, Response res){
+        Gson gson = new Gson();
+        String received = gson.fromJson(req.body(), String.class);
+
+        int iHelper = -1;
+        if (loggedUser != null){
+            for(int i = 0; i<activityArr.size();i+=1){
+                if (Objects.equals(activityArr.get(i).id, received)) {
+                    iHelper = i;
+                    if (activityArr.get(i).likingUsers.contains(loggedUser.username)){
+                        System.out.println("TEST2");
+                        activityArr.get(i).likingUsers.remove(loggedUser.username);
+                    } else {
+                        System.out.println("TEST2");
+                        activityArr.get(i).likingUsers.add(loggedUser.username);
+                    }
+                    String joinedArr = String.join(",", activityArr.get(i).likingUsers);
+                    dbHelper.updateLikes(received, joinedArr);
+                    activityArr.get(i).likingUsers = new ArrayList<>(dbHelper.getLikes(received));
+                }
+            }
+            for(int g = userArr.size()-1;g>=0;g-=1){
+                for(int h = 0;h<userArr.get(g).activities.size();h+=1){
+                    if (Objects.equals(received, userArr.get(g).activities.get(h).id)){
+                        String joinedArr = String.join(",", activityArr.get(iHelper).likingUsers);
+                        dbHelper.updateLikes(received, joinedArr);
+                        userArr.get(g).activities.get(h).likingUsers = new ArrayList<>(dbHelper.getLikes(received));
+                    }
+                }
+            }
+            return(true);
+        } else {
+            return(false);
+        }
     }
 
 }

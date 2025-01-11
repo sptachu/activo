@@ -120,13 +120,16 @@ async function updateHandle(inputs, id) {
         inputVals.push(inputs[i].value)
     }
     console.log(inputVals)
-
-    let json = await fetchPostAsync4(inputVals, id)
-    alert(JSON.stringify(json, null, 5))
-    if(json){
-        location.reload()
+    if((inputVals[3] == "run" || inputVals[3] == "bike" || inputVals[3] == "swim") && inputVals[0] != "" && inputVals[2] != "" && inputVals[4] != "" && inputVals[5] != "" && inputVals[6] != ""){
+        let json = await fetchPostAsync4(inputVals, id)
+        alert(JSON.stringify(json, null, 5))
+        if(json){
+            location.reload()
+        } else {
+            window.location = 'http://127.0.0.1:4567/login.html';
+        }
     } else {
-        window.location = 'http://127.0.0.1:4567/login.html';
+        alert("Niepoprawne dane")
     }
 }
 
