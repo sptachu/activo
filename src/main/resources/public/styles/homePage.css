@@ -327,3 +327,55 @@ body {
     font-weight: bold;
     margin: 0;
 }
+
+/* Styl dla polubień */
+.like-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px; /* Odstęp od prawej krawędzi */
+}
+
+.like-button {
+    background-color: #a145d1; /* Jasny purpurowy, pasujący do tła */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.5s ease;
+}
+
+.like-button:hover {
+    background-color: #8519b0; /* Ciemniejszy purpurowy na hover */
+}
+
+.like-counter {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #8519b0; /* Ciemniejszy purpurowy */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like-button.clicked {
+    animation: scale-up 0.5s ease; /* Powiązanie z animacją */
+}
+
+@keyframes scale-up {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5); /* Powiększenie */
+    }
+    100% {
+        transform: scale(1); /* Powrót do normalnego rozmiaru */
+    }
+}

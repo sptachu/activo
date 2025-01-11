@@ -1,0 +1,128 @@
+body {
+    background-color: #f0f0f0; /* jasno szary kolor tła */
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Styl przycisków */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Jasnoniebieski przycisk "Home page" */
+#homePageBtn {
+    background-color: #007bff; /* jasno niebieski */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#homePageBtn:hover {
+    background-color: #0056b3; /* trochę ciemniejszy niebieski przy najechaniu */
+}
+
+#activityList {
+    margin-top: 20px;
+}
+
+/* Styl kontenerów aktywności */
+.activityDiv {
+    background-color: #EDE7F6; /* jasny fioletowy */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    row-gap: 10px;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.activityDiv .titleWrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.activityDiv .titleWrapper input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Styl etykiet */
+.activityDiv label {
+    font-weight: bold;
+}
+
+/* Styl inputów */
+.activityDiv input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.activityDiv input[type="text"]:focus {
+    border-color: #4A90E2; /* niebieski obrys */
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* podświetlenie przy focus */
+    outline: none;
+}
+
+/* Styl przycisków aktualizacji */
+.updateBtn {
+    background-color: #673AB7;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    grid-column: 1 / -1;
+    justify-self: start;
+}
+
+.updateBtn:hover {
+    background-color: #512DA8;
+}
+
+/* Przyciski usuwania */
+#deleteBtn, #accountDelBtn {
+    background-color: #D32F2F;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#deleteBtn:hover, #accountDelBtn:hover {
+    background-color: #B71C1C;
+}
+
+.activityCheckbox {
+    float: left;
+    transform: scale(5); /* Adjust the scale value as needed */
+    margin-right: 10px; /* Optional: Add some space between the checkbox and the text */
+}

@@ -1,19 +1,18 @@
-// JavaScript to toggle between views
 const activitiesSection = document.getElementById('activities');
 const goalsSection = document.getElementById('goals');
 const navLinks = document.querySelectorAll('.nav-links a');
 
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (link.textContent === 'Home') {
-            activitiesSection.style.display = 'block';
-            goalsSection.style.display = 'none';
-        } else if (link.textContent === 'Goals & Progress') {
-            activitiesSection.style.display = 'none';
-            goalsSection.style.display = 'block';
-        }
-    });
-});
+// navLinks.forEach(link => {
+//     link.addEventListener('click', () => {
+//         if (link.textContent === 'Home') {
+//             activitiesSection.style.display = 'block';
+//             goalsSection.style.display = 'none';
+//         } else if (link.textContent === 'Goals & Progress') {
+//             activitiesSection.style.display = 'none';
+//             goalsSection.style.display = 'block';
+//         }
+//     });
+// });
 
 // window.onload = async () => {
 //     let json = await fetchPostAsync3()
@@ -91,6 +90,13 @@ window.onload = async () => {
             }
             likeWrapper.appendChild(likeButton);
             likeWrapper.appendChild(likeCounter);
+
+            likeButton.addEventListener("click", () => {
+                likeButton.classList.add("clicked"); // Dodanie klasy animacji
+                setTimeout(() => {
+                    likeButton.classList.remove("clicked"); // Usunięcie klasy po zakończeniu animacji
+                }, 500); // Czas trwania animacji w milisekundach (dopasowany do CSS)
+            });
 
             let username = document.createElement("p");
             username.classList.add("username");
@@ -257,6 +263,15 @@ document.getElementById("addActivityBtn").onclick = async () => {
     console.log("Response from server:", json);
     alert(JSON.stringify(json, null, 5))
 }
+
+// //powiekszenie like button po kliknieciu
+// let likeButton = document.querySelector(".like-button");
+// likeButton.addEventListener("click", () => {
+//     likeButton.classList.add("clicked"); // Dodanie klasy animacji
+//     setTimeout(() => {
+//         likeButton.classList.remove("clicked"); // Usunięcie klasy po zakończeniu animacji
+//     }, 200); // Czas trwania animacji w milisekundach (dopasowany do CSS)
+// });
 
 
 fetchPostAsync2 = async () => {
