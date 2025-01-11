@@ -203,6 +203,27 @@ public class DatabaseHelper {
         return true;
     }
 
+    public boolean updateActivity(String title, String location, String duration, String time, String type, double distance, int elevation, String user, String trueID) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "UPDATE activities SET title = ?, location = ?, duration = ?, time = ?, type = ?, distance = ?, elevation = ? WHERE trueId = ?");
+            prepStmt.setString(1, title);
+            prepStmt.setString(2, location);
+            prepStmt.setString(3, duration);
+            prepStmt.setString(4, time);
+            prepStmt.setString(5, type);
+            prepStmt.setDouble(6, distance);
+            prepStmt.setInt(7, elevation);
+            prepStmt.setString(8, trueID);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Error updating activity");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     public void closeConnection() {
         try {
             conn.close();

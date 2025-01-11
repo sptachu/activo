@@ -65,39 +65,25 @@ window.onload = async () => {
 
             document.getElementById("activityList").appendChild(activityDiv)
 
-        }
-        let updateBtn = document.createElement("button")
-        updateBtn.id = "updateBtn"
-        updateBtn.innerText = "Update activities"
-        document.getElementById("activityList").appendChild(updateBtn);
-        document.getElementById("activityList").innerHTML += "<br>"
+            let updateBtn = document.createElement("button")
+            updateBtn.innerText = "Update activity"
+            updateBtn.id = json.activities[i].id + "a"
+            updateBtn.classList.add("updateBtn")
+            document.getElementById("activityList").appendChild(updateBtn);
+            document.getElementById("activityList").innerHTML += "<br>"
 
-        updateBtn.onclick = async () => {
-            console.log("KLIK")
-            // let json = await fetchPostAsync2()
-            // alert(JSON.stringify(json, null, 5))
-            // if (json){
-            //     location.reload()
-            // } else {
-            //     window.location = 'http://127.0.0.1:4567/login.html';
-            // }
         }
 
-        let submitBtn = document.createElement("button")
-        submitBtn.id = "submitBtn"
-        submitBtn.innerText = "Delete activities"
-        document.getElementById("activityList").appendChild(submitBtn);
+        let elements = document.getElementsByClassName("updateBtn");
 
-        submitBtn.onclick = async () => {
-            let json = await fetchPostAsync2()
-            alert(JSON.stringify(json, null, 5))
-            if (json){
-                location.reload()
-            } else {
-                window.location = 'http://127.0.0.1:4567/login.html';
+        for(let i = 0; i < elements.length; i++) {
+            elements[i].onclick = e => {
+                console.log(e.target)
+                let id = e.target.id.substring(0, e.target.id.length - 1)
+                let inputs  = document.getElementsByName(id)
+                updateHandle(inputs, id)
             }
         }
-
     } else if (json != null && json.ifAdmin){
         alert("User jest adminem")
         window.location = 'http://127.0.0.1:4567/adminPage.html';
@@ -119,8 +105,29 @@ document.getElementById("accountDelBtn").onclick = async () => {
     }
     window.location = 'http://127.0.0.1:4567/login.html';
 }
-function onUpdateClick() {
-    console.log("KLIK")
+document.getElementById("deleteBtn").onclick = async () => {
+    let json = await fetchPostAsync2()
+    alert(JSON.stringify(json, null, 5))
+    if (json){
+        location.reload()
+    } else {
+        window.location = 'http://127.0.0.1:4567/login.html';
+    }
+}
+async function updateHandle(inputs, id) {
+    let inputVals = []
+    for(let i = 0;i<inputs.length;i++){
+        inputVals.push(inputs[i].value)
+    }
+    console.log(inputVals)
+
+    let json = await fetchPostAsync4(inputVals, id)
+    alert(JSON.stringify(json, null, 5))
+    if(json){
+        location.reload()
+    } else {
+        window.location = 'http://127.0.0.1:4567/login.html';
+    }
 }
 
 fetchPostAsync = async () => {
@@ -180,17 +187,17 @@ fetchPostAsync3 = async () => {
 
 }
 
-fetchPostAsync4 = async (titleInput,timeInput,locationInput,typeInput,durationInput,distanceInput,elevationInput) => {
+fetchPostAsync4 = async (inputVals, id) => {
     console.log("TEST")
     let dat = JSON.stringify({
-        title: titleInput.value,
-        time: timeInput.value,
-        type: typeInput.value,
-        duration: durationInput.value,
-        location: locationInput.value,
-        elevation: elevationInput.value,
-        distance: distanceInput.value,
-        id: timeInput.name
+        title: inputVals[0],
+        time: inputVals[1],
+        type: inputVals[3],
+        duration: inputVals[4],
+        location: inputVals[2],
+        elevation: inputVals[6],
+        distance: inputVals[5],
+        id: id
     });
 
     const options = {
