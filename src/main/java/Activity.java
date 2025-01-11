@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Activity {
     public String id;
     public String title;
@@ -9,6 +12,7 @@ public class Activity {
     public String pace;
     public int elevation;
     public String user;
+    public ArrayList<String> likingUsers = new ArrayList<String>();
 
     public Activity(String title, String location, String duration, String time, String type, double distance,int elevation, User user) {
         this.title = title;
@@ -28,7 +32,7 @@ public class Activity {
         this.user = user.username;
     }
 
-    public Activity(String id, String title, String location, String duration, String time, String type, double distance,int elevation, String user) {
+    public Activity(String id, String title, String location, String duration, String time, String type, double distance,int elevation, String user, String usersWhoLiked) {
         this.title = title;
         this.location = location;
         this.duration = duration;
@@ -42,12 +46,16 @@ public class Activity {
             case "swim" -> this.pace = swimPaceCalc(duration, distance);
         }
 
+        String[] likingUsersArr = usersWhoLiked.split(","); // tutaj to musi byc dowolny znak specjalny
+        Collections.addAll(likingUsers, likingUsersArr);
+
         for (User u : App.userArr) {
             if (u.username.equals(user)) {
                 this.id = id;
                 this.user = u.username;
             }
         }
+
     }
 
 

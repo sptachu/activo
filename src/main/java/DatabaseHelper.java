@@ -29,7 +29,7 @@ public class DatabaseHelper {
 
     public boolean createTables() {
         String createUsers = "CREATE TABLE IF NOT EXISTS users (id_user INTEGER PRIMARY KEY AUTOINCREMENT, ifAdmin INTEGER, username TEXT, password TEXT, goalTotalActiveTime TEXT, goalTenKmRunTime TEXT, goalFortyKmBikeTime TEXT, goalFourHundredMetersSwimTime TEXT, goalTotalDistance REAL)";
-        String createActivities = "CREATE TABLE IF NOT EXISTS activities (id_activity INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, duration TEXT, time TEXT, type TEXT, distance REAL, elevation INTEGER, user TEXT, trueID TEXT)";
+        String createActivities = "CREATE TABLE IF NOT EXISTS activities (id_activity INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, duration TEXT, time TEXT, type TEXT, distance REAL, elevation INTEGER, user TEXT, trueID TEXT, likingUsers TEXT)";
         try {
             stat.execute(createUsers);
             stat.execute(createActivities);
@@ -72,10 +72,10 @@ public class DatabaseHelper {
         return true;
     }
 
-    public boolean insertActivities(String title, String location, String duration, String time, String type, double distance, int elevation, String user, String trueID) {
+    public boolean insertActivities(String title, String location, String duration, String time, String type, double distance, int elevation, String user, String trueID, String likingUsers) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO activities (title, location, duration, time, type, distance, elevation, user, trueID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO activities (title, location, duration, time, type, distance, elevation, user, trueID, likingUsers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             prepStmt.setString(1, title);
             prepStmt.setString(2, location);
             prepStmt.setString(3, duration);
@@ -85,6 +85,7 @@ public class DatabaseHelper {
             prepStmt.setInt(7, elevation);
             prepStmt.setString(8, user);
             prepStmt.setString(9, trueID);
+            prepStmt.setString(10, likingUsers);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Blad przy wstawianiu aktywnosci");
@@ -163,7 +164,7 @@ public class DatabaseHelper {
             ResultSet result = stat.executeQuery("SELECT * FROM activities");
             int id, elevation;
             double distance;
-            String title, location, duration, time, type, user, trueID;
+            String title, location, duration, time, type, user, trueID, likingUsers;
             while(result.next()) {
                 id = result.getInt("id_activity");
                 title = result.getString("title");
@@ -175,7 +176,8 @@ public class DatabaseHelper {
                 elevation = result.getInt("elevation");
                 user = result.getString("user");
                 trueID = result.getString("trueID");
-                activitiess.add(new Activity(trueID ,title, location, duration, time, type, distance, elevation, user));
+                likingUsers = result.getString("likingUsers");
+                activitiess.add(new Activity(trueID ,title, location, duration, time, type, distance, elevation, user, likingUsers));
             }
         } catch (SQLException e) {
             e.printStackTrace();
