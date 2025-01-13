@@ -15,7 +15,7 @@ window.onload = async () => {
             activityDiv.classList.add("activityDiv")
             checkbox.classList.add("activityCheckbox")
 
-            activityDiv.innerHTML += "Title: "
+            activityDiv.innerHTML += "Tytuł: "
             let titleInput = document.createElement("input")
             titleInput.defaultValue = json.activities[i].title
             titleInput.name = json.activities[i].id
@@ -23,7 +23,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             titleInput.classList.add("titleInput")
 
-            activityDiv.innerHTML += "Time: "
+            activityDiv.innerHTML += "Data i Czas: "
             let timeInput = document.createElement("input")
             timeInput.defaultValue = json.activities[i].time
             timeInput.readOnly = true;
@@ -32,7 +32,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             timeInput.classList.add("timeInput")
 
-            activityDiv.innerHTML += "Location: "
+            activityDiv.innerHTML += "Lokalizacja: "
             let locationInput = document.createElement("input")
             locationInput.defaultValue = json.activities[i].location
             locationInput.name = json.activities[i].id
@@ -40,7 +40,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             locationInput.classList.add("locationInput")
 
-            activityDiv.innerHTML += "Type: "
+            activityDiv.innerHTML += "Typ: "
             let typeInput = document.createElement("input")
             typeInput.defaultValue = json.activities[i].type
             typeInput.name = json.activities[i].id
@@ -48,7 +48,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             typeInput.classList.add("typeInput")
 
-            activityDiv.innerHTML += "Duration: "
+            activityDiv.innerHTML += "Czas Trwania: "
             let durationInput = document.createElement("input")
             durationInput.defaultValue = json.activities[i].duration
             durationInput.name = json.activities[i].id
@@ -56,7 +56,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             durationInput.classList.add("durationInput")
 
-            activityDiv.innerHTML += "Distance: "
+            activityDiv.innerHTML += "Dystans: "
             let distanceInput = document.createElement("input")
             distanceInput.defaultValue = json.activities[i].distance
             distanceInput.name = json.activities[i].id
@@ -64,7 +64,7 @@ window.onload = async () => {
             activityDiv.innerHTML += "<br>"
             distanceInput.classList.add("distanceInput")
 
-            activityDiv.innerHTML += "Elevation: "
+            activityDiv.innerHTML += "Przewyższenie: "
             let elevationInput = document.createElement("input")
             elevationInput.defaultValue = json.activities[i].elevation
             elevationInput.name = json.activities[i].id
@@ -75,7 +75,7 @@ window.onload = async () => {
             document.getElementById("activityList").appendChild(activityDiv)
 
             let updateBtn = document.createElement("button")
-            updateBtn.innerText = "Update activity"
+            updateBtn.innerText = "Aktualizuj Aktywność"
             updateBtn.id = json.activities[i].id + "a"
             updateBtn.classList.add("updateBtn")
             document.getElementById("activityList").appendChild(updateBtn);

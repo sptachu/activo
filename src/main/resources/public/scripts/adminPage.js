@@ -37,10 +37,10 @@ window.onload = async () => {
         }
         let submitBtn = document.createElement("button")
         submitBtn.id = "submitBtn"
-        submitBtn.innerText = "Delete activities"
+        submitBtn.innerText = "Usuń Aktywności"
         let submitBtn2 = document.createElement("button")
         submitBtn2.id = "submitBtn2"
-        submitBtn2.innerText = "Delete users"
+        submitBtn2.innerText = "Usuń Użytkowników"
 
         document.getElementById("userList").appendChild(submitBtn);
         document.getElementById("userList").appendChild(submitBtn2);
