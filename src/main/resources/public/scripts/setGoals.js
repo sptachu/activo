@@ -48,7 +48,7 @@ document.getElementById("submitGoalsBtn").onclick = async () => {
     if (json){
         window.location = 'http://127.0.0.1:4567/';
     }
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
 }
 
 

@@ -19,9 +19,11 @@
             let json = await fetchPostAsync()
             console.log(json)
             if (json){
+                alert("Zalogowano pomyślnie")
                 window.location = 'http://127.0.0.1:4567/';
+            } else {
+                alert("Niepoprawne dane")
             }
-            alert(JSON.stringify(json, null, 5))
         }
         fetchPostAsync = async () => {
             const dat = JSON.stringify({

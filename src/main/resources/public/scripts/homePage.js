@@ -205,7 +205,7 @@ function createDetail(labelText, valueText) {
 
 async function likeHandle(id, action) {
     let json = await fetchPostAsync5(id)
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
     if(json){
         if (action === 1) {
             document.getElementById(id+"aa").innerText = parseInt(document.getElementById(id+"aa").innerText) + 1
@@ -229,7 +229,7 @@ document.getElementById("logOutBtn").onclick = async () => {
 
     window.location = 'http://127.0.0.1:4567/login.html';
     console.log(json)
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
 }
 
 document.getElementById("user-profile").onclick = async () => {
@@ -261,7 +261,7 @@ document.getElementById("addActivityBtn").onclick = async () => {
         window.location = 'http://127.0.0.1:4567/addActivity.html';
     }
     console.log("Response from server:", json);
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
 }
 
 // //powiekszenie like button po kliknieciu

@@ -11,7 +11,7 @@ user <- Frontend: dodano aktywnosc
 ==  sekcja 2: wyswietlanie strony głownej ==
 user -> Frontend : wyswietl strone glona
 Frontend -> Engine : żądanie wyswietlenia strny glownej
-Engine -> DB: żądanie ostatnich aktywnosci uzytownikow
+Engine -> DB: żądanie ostatnich aktywnosci uzytownikow i celow zalogowanego
 DB -> Engine : wyslanie danych ostatnich aktywnosci
 Engine -> Frontend: wyslanie danych ostatnich aktywnosci
 Frontend -> user : wyswietlnie danych ostatnich aktywnosci
@@ -31,6 +31,38 @@ Engine --> Frontend: sprawdzenie prawidlowe - zalogowano
 Frontend --> user : zalogowano
 Engine --> Frontend : bledne dane - sprobuj ponownie
 Frontend --> user : nieudane logowanie, wpisz prawidlowe dane
+== sekcja 5: rejestracja ==
+user -> Frontend : podaje dane i zarejestruj sie
+Frontend -> Engine : żądanie rejestracji z danymi
+Engine -> DB: żądanie rejestracji danymi
+DB --> Engine : wyslanie danych powiazanych z nickiem
+Engine --> Frontend: sprawdzenie prawidlowe - stworzono nowe konto
+Frontend --> user : zalogowano
+Engine --> Frontend : bledne dane - sprobuj ponownie
+Frontend --> user : nieudana rejestracja, wpisz prawidlowe dane
+== sekcja 6: edycja aktywności ==
+user -> Frontend : podanie danych do edycji aktywnosci
+Frontend -> Engine : żądanie edycji aktywnosci
+Engine -> DB: żądanie edycji aktywnosci
+DB --> Engine : wyslanie danych powiazanych z aktywnoscia
+Engine --> Frontend: sprawdzenie prawidlowe - edytowano aktywnosc
+Frontend --> user : edytowano aktywnosc
+Engine --> Frontend : bledne dane - sprobuj ponownie
+Frontend --> user : nieudana edycja, wpisz prawidlowe dane
+== sekcja 7: edycja celów ==
+user -> Frontend : podanie danych do edycji celów
+Frontend -> Engine : żądanie edycji celów
+Engine -> DB: żądanie edycji celów
+DB -> Engine : wyslanie danych powiazanych z celami
+Engine -> Frontend: sprawdzenie prawidlowe - edytowano cele
+Frontend -> user : edytowano cele
+== sekcja 8: polubienie aktywności ==
+user -> Frontend : polubienie aktywnosci
+Frontend -> Engine : informacja, że user chce polubić aktywność
+Engine -> DB: żądanie polubienia aktywnosci
+DB -> Engine : wyslanie danych powiazanych z aktywnością
+Engine -> Frontend: aktualizacja aktywności
+Frontend -> user : polubiono aktywność
 @enduml
 @startuml
 == usuwanie aktywnosci ==

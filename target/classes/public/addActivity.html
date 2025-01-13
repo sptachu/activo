@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Activity</title>
+    <title>Dodaj Aktywność</title>
     <link rel="stylesheet" href="styles/addActivity.css">
 </head>
 <body>
 <div class="container">
-    <h1 class="form-title">Add Activity</h1>
+    <h1 class="form-title">Dodaj Aktywność</h1>
     <div id="addActivityForm">
         <div class="full-width centered">
-            <label for="title">Activity Title:</label>
+            <label for="title">Nazwa Aktywności:</label>
             <input type="text" id="title" name="title"  required>
         </div>
         <div class="columns">
             <div class="column">
-                <label for="time">Time:</label>
+                <label for="time">Data i Czas:</label>
                 <input id="time" name="time" type="datetime-local" required>
 
                 <label>Type:</label>
@@ -27,7 +27,7 @@
                 </div>
                 <input type="hidden" id="type" name="type" required>
 
-                <label>Duration:</label>
+                <label>Czas Trwania:</label>
                 <div class="duration-inputs">
                     <input type="number" id="hours" name="hours" min="0" placeholder="HH" required>
                     <input type="number" id="minutes" name="minutes" min="0" max="59" placeholder="MM" required>
@@ -35,17 +35,17 @@
                 </div>
             </div>
             <div class="column">
-                <label for="location">Location:</label>
+                <label for="location">Lokalizacja:</label>
                 <input type="text" id="location" name="location" required>
 
-                <label for="elevation">Elevation (m):</label>
+                <label for="elevation">Przewyższenie (m):</label>
                 <input type="number" id="elevation" name="elevation" required>
 
-                <label for="distance">Distance (km):</label>
+                <label for="distance">Dystans (km):</label>
                 <input type="number" id="distance" name="distance" step="0.01" required>
             </div>
         </div>
-        <button class="wide-button" id="submitActivityBtn">Add Activity</button>
+        <button class="wide-button" id="submitActivityBtn">Dodaj Aktywność</button>
     </div>
 </div>
 <script src="scripts/addActivity.js"></script>

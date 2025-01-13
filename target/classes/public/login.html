@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Logowanie</title>
     <link rel="stylesheet" href="styles/loginPage.css">
 </head>
 <body>
 
     <div>
         <h1>Logowanie</h1>
-        <input id="username" placeholder="Username"/><br/>
-        <input id="password" type="password" placeholder="Password"/><br/>
+        <input id="username" placeholder="Nazwa Użytkownika"/><br/>
+        <input id="password" type="password" placeholder="Hasło"/><br/>
         <button id="btn">Zaloguj się</button>
         <button class="styledBtn" onclick="window.location.href='register.html'">zarejestruj sie</button>
     </div>
@@ -19,9 +19,11 @@
             let json = await fetchPostAsync()
             console.log(json)
             if (json){
+                alert("Zalogowano pomyślnie")
                 window.location = 'http://127.0.0.1:4567/';
+            } else {
+                alert("Niepoprawne dane")
             }
-            alert(JSON.stringify(json, null, 5))
         }
         fetchPostAsync = async () => {
             const dat = JSON.stringify({

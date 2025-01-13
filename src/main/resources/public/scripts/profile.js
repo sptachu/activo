@@ -116,7 +116,7 @@ document.getElementById("accountDelBtn").onclick = async () => {
 }
 document.getElementById("deleteBtn").onclick = async () => {
     let json = await fetchPostAsync2()
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
     if (json){
         location.reload()
     } else {
@@ -131,7 +131,7 @@ async function updateHandle(inputs, id) {
     console.log(inputVals)
     if((inputVals[3] == "run" || inputVals[3] == "bike" || inputVals[3] == "swim") && inputVals[0] != "" && inputVals[2] != "" && inputVals[4] != "" && inputVals[5] != "" && inputVals[6] != ""){
         let json = await fetchPostAsync4(inputVals, id)
-        alert(JSON.stringify(json, null, 5))
+        // alert(JSON.stringify(json, null, 5))
         if(json){
             location.reload()
         } else {

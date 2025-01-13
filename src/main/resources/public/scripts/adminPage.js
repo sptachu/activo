@@ -46,7 +46,7 @@ window.onload = async () => {
         document.getElementById("userList").appendChild(submitBtn2);
         submitBtn.onclick = async () => {
             let json = await fetchPostAsync3()
-            alert(JSON.stringify(json, null, 5))
+            // alert(JSON.stringify(json, null, 5))
             if (json){
                 location.reload()
             } else {
@@ -55,7 +55,7 @@ window.onload = async () => {
         }
         submitBtn2.onclick = async () => {
             let json = await fetchPostAsync4()
-            alert(JSON.stringify(json, null, 5))
+            // alert(JSON.stringify(json, null, 5))
             if (json){
                 location.reload()
             } else {
@@ -77,7 +77,7 @@ document.getElementById("logOutBtn").onclick = async () => {
 
     window.location = 'http://127.0.0.1:4567/login.html';
     console.log(json)
-    alert(JSON.stringify(json, null, 5))
+    // alert(JSON.stringify(json, null, 5))
 }
 
 fetchPostAsync = async () => {

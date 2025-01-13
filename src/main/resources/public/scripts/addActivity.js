@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.getElementById("submitActivityBtn").onclick = async () => {
     if (!typeInput.value) {
-        alert("Please select an activity type.");
+        alert("wybierz typ aktywnosci.");
         return;
     }
 
@@ -48,7 +48,7 @@ document.getElementById("submitActivityBtn").onclick = async () => {
     } else {
         window.location = 'http://127.0.0.1:4567/login.html';
     }
-    alert(JSON.stringify(json, null, 5))
+    //alert(JSON.stringify(json, null, 5))
 }
 
 // function formatTimeUnit(unit) {
