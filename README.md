@@ -42,4 +42,4 @@ Important: Passwords and usernames are stored in local database in plaintext.
 
 ## Credits
 
-This is a group project, full credit also goes to my colleague Stanisław Ptaszyński (https://github.com/sptachu).
+This is a group project, full credit also goes to my colleague Igor Walasek (https://github.com/igorw33).
